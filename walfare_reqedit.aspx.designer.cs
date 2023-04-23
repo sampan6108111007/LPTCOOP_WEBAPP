@@ -49,13 +49,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label38;
         
         /// <summary>
-        /// DropDownList12 control.
+        /// MemberType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList12;
+        protected global::System.Web.UI.WebControls.DropDownList MemberType;
         
         /// <summary>
         /// Label39 control.
@@ -103,13 +103,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// TextBox24 control.
+        /// TbxMember_no control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox24;
+        protected global::System.Web.UI.WebControls.TextBox TbxMember_no;
         
         /// <summary>
         /// Button1 control.
@@ -166,13 +166,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label8;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// DL_PreName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList DL_PreName;
         
         /// <summary>
         /// Label9 control.
@@ -184,13 +184,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label9;
         
         /// <summary>
-        /// TextBox7 control.
+        /// Tbx_Fname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox7;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Fname;
         
         /// <summary>
         /// Label10 control.
@@ -202,13 +202,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label10;
         
         /// <summary>
-        /// TextBox8 control.
+        /// Tbx_Sname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox8;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Sname;
         
         /// <summary>
         /// Label2 control.
@@ -220,13 +220,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// TextBox4 control.
+        /// Tbx_Idcard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Idcard;
         
         /// <summary>
         /// Label11 control.
@@ -238,13 +238,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
-        /// TextBox9 control.
+        /// Tbx_Birthday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox9;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Birthday;
         
         /// <summary>
         /// Label13 control.
@@ -256,13 +256,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label13;
         
         /// <summary>
-        /// TextBox25 control.
+        /// Tbx_Age control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox25;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Age;
         
         /// <summary>
         /// Label14 control.
@@ -274,13 +274,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label14;
         
         /// <summary>
-        /// DropDownList13 control.
+        /// DL_Membergroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList13;
+        protected global::System.Web.UI.WebControls.DropDownList DL_Membergroup;
         
         /// <summary>
         /// Label42 control.
@@ -337,13 +337,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label23;
         
         /// <summary>
-        /// DropDownList6 control.
+        /// DL_Mariage_Status control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList6;
+        protected global::System.Web.UI.WebControls.DropDownList DL_Mariage_Status;
         
         /// <summary>
         /// Label24 control.
@@ -355,13 +355,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label24;
         
         /// <summary>
-        /// TextBox15 control.
+        /// Tbx_Mariage_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox15;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Mariage_Name;
         
         /// <summary>
         /// Label25 control.
@@ -373,13 +373,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label25;
         
         /// <summary>
-        /// TextBox16 control.
+        /// Tbx_Mariage_Sname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox16;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Mariage_Sname;
         
         /// <summary>
         /// Label26 control.
@@ -391,13 +391,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label26;
         
         /// <summary>
-        /// DropDownList7 control.
+        /// DL_Mariage_Ampher control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList7;
+        protected global::System.Web.UI.WebControls.DropDownList DL_Mariage_Ampher;
         
         /// <summary>
         /// Label27 control.
@@ -409,13 +409,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label27;
         
         /// <summary>
-        /// DropDownList8 control.
+        /// DLPrvince1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList8;
+        protected global::System.Web.UI.WebControls.DropDownList DLPrvince1;
         
         /// <summary>
         /// Label28 control.
@@ -427,13 +427,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label28;
         
         /// <summary>
-        /// TextBox17 control.
+        /// Tbx_Mariage_Date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox17;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Mariage_Date;
         
         /// <summary>
         /// Label29 control.
@@ -445,13 +445,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label29;
         
         /// <summary>
-        /// TextBox18 control.
+        /// Tbx_Mariage_Id control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox18;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Mariage_Id;
         
         /// <summary>
         /// Label30 control.
@@ -472,13 +472,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label31;
         
         /// <summary>
-        /// TextBox19 control.
+        /// Tbx_Contact_Address control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox19;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Contact_Address;
         
         /// <summary>
         /// Label32 control.
@@ -562,13 +562,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label36;
         
         /// <summary>
-        /// TextBox21 control.
+        /// Tbx_Phone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox21;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Phone;
         
         /// <summary>
         /// GridView1 control.
