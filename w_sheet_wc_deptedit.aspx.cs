@@ -35,11 +35,14 @@ namespace icoop_webapp
               
                 //จังหวัด อำเภอ ตำบล
                 DLPrvince.Items.Insert(0, "-- เลือกจังหวัด--");
-                DLPrvince1.Items.Insert(0, "-- เลือกจังหวัด--");
+                DLMariage_Provine.Items.Insert(0, "-- เลือกจังหวัด--");
+                DLMariage_Ampher.Items.Insert(0, "--- เลือกอำเถอ --");
                 DLAmpher.Items.Insert(0, "-- เลือกอำเภอ--");
                 DLtambon.Items.Insert(0, "-- เลือกตำบล--");
                 Gen_Province();
-                Gen_Province1();
+                Gen_Mariage_Provine();
+              
+       
 
                 //คำนำหน้าชื่อ
                 PreName.Items.Insert(0, "---เลือกคำนำหน้าชื่อ---");
@@ -94,7 +97,6 @@ namespace icoop_webapp
         }
 
        
-
         private void Gen_Prename()
         {
             str = "select * from wcucfprename order by prename_desc";
@@ -120,16 +122,40 @@ namespace icoop_webapp
 
         }
 
-        private void Gen_Province1()
+        private void Gen_Mariage_Provine()
         {
             str = "select * from wcucfprovince order by province_desc";
-            DLPrvince1.DataSource = Cndb.SelectQueryDropdown(str);
-            DLPrvince1.DataMember = "show";
-            DLPrvince1.DataTextField = "province_desc";
-            DLPrvince1.DataValueField = "Province_code";
-            DLPrvince1.Items.Insert(0, "-- เลือกจังหวัด --");
-            DLPrvince1.DataBind();
+            DLMariage_Provine.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Provine.DataMember = "show";
+            DLMariage_Provine.DataTextField = "province_desc";
+            DLMariage_Provine.DataValueField = "Province_code";
+            DLMariage_Provine.Items.Insert(0, "-- เลือกจังหวัด --");
+            DLMariage_Provine.DataBind();
 
+        }
+
+        void Gen_Mariage_Ampher(string Province_code)
+        {
+            str = "select * from wcucfdistrict where province_code ='" + Province_code.ToString() + "' order by district_desc";
+            DLMariage_Ampher.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Ampher.DataMember = "show";
+            DLMariage_Ampher.DataTextField = "district_desc";
+            DLMariage_Ampher.DataValueField = "district_code";
+            DLMariage_Ampher.Items.Insert(0, "-- เลือกจังหวัด--");
+            DLMariage_Ampher.DataBind();
+            
+        }
+
+        void Gen_Mariage_Ampher(string Province_code, string Ampher_code)
+        {
+            str = "select * from wcucfdistrict where district_code ='" + Ampher_code.ToString() + "'";
+            DLMariage_Ampher.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Ampher.DataMember = "show";
+            DLMariage_Ampher.DataTextField = "district_desc";
+            DLMariage_Ampher.DataValueField = "district_code";
+            DLMariage_Ampher.Items.Insert(0, "-- เลือกจังหวัด--");
+            DLMariage_Ampher.DataBind();
+           
         }
 
         void Gen_Ampher(string Province_code)
@@ -236,6 +262,14 @@ namespace icoop_webapp
             Tbx_Phone.Text = dt.Rows[0]["phone"].ToString();
             Tbx_Manage_Name.Text = dt.Rows[0]["manage_corpse_name"].ToString();
             DLStatus.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
+            Tbx_Mariage_Name.Text = dt.Rows[0]["mariage_name"].ToString();
+            Tbx_Mariage_Sname.Text = dt.Rows[0]["mariage_sname"].ToString();
+            Tbx_Mariage_Date.Text = Fc.GetshotDate(dt.Rows[0]["mariage_date"].ToString(), 17);
+            Tbx_Mariage_Id.Text = dt.Rows[0]["mariage_id"].ToString();
+            DLMariage_Provine.SelectedValue = dt.Rows[0]["mariage_province"].ToString().Trim();
+            Gen_Mariage_Ampher(dt.Rows[0]["mariage_province"].ToString(), dt.Rows[0]["mariage_ampher"].ToString());
+            //Gen_Mariage_Ampher(dt.Rows[0]["province_code"].ToString(), dt.Rows[0]["ampher_code"].ToString());
+
            
             try
             {
@@ -249,8 +283,11 @@ namespace icoop_webapp
             Age fixedAge = new Age(birthdate, DateTime.Now);         
             Tbx_Age.Text = fixedAge.ToString();
             // --------------------------------------
-            string Sex = dt.Rows[0]["sex"].ToString();
-            RadioButtonList1.Items.FindByValue(Sex).Selected = true;
+            string Sex = dt.Rows[0]["sex"].ToString();                        
+            RadioButtonList1.SelectedValue = Sex;
+
+            DLStatus.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
+
         }
 
         void Get_postcode(string Amper_code)
@@ -265,6 +302,9 @@ namespace icoop_webapp
         {
             Get_selectAll();
         }
+
+       
+
 
     }
 }
