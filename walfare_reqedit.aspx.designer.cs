@@ -49,13 +49,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label38;
         
         /// <summary>
-        /// MemberType control.
+        /// DLMember_Type control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MemberType;
+        protected global::System.Web.UI.WebControls.DropDownList DLMember_Type;
         
         /// <summary>
         /// Label39 control.
@@ -292,13 +292,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label42;
         
         /// <summary>
-        /// TextBox26 control.
+        /// Tbx_Manage_Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox26;
+        protected global::System.Web.UI.WebControls.TextBox Tbx_Manage_Name;
         
         /// <summary>
         /// Label43 control.
@@ -391,13 +391,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label26;
         
         /// <summary>
-        /// DL_Mariage_Ampher control.
+        /// DLMariage_Ampher control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DL_Mariage_Ampher;
+        protected global::System.Web.UI.WebControls.DropDownList DLMariage_Ampher;
         
         /// <summary>
         /// Label27 control.
@@ -409,13 +409,13 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.Label Label27;
         
         /// <summary>
-        /// DLPrvince1 control.
+        /// DLMariage_Provine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DLPrvince1;
+        protected global::System.Web.UI.WebControls.DropDownList DLMariage_Provine;
         
         /// <summary>
         /// Label28 control.

@@ -42,13 +42,13 @@ namespace icoop_webapp
                 Gen_Province();
                 Gen_Mariage_Provine();
               
-       
 
                 //คำนำหน้าชื่อ
                 PreName.Items.Insert(0, "---เลือกคำนำหน้าชื่อ---");
                 Gen_Prename();
 
                 // สังกัด/หน่วย
+
                 MemberGroup.Items.Insert(0, "---เลือกสังกัด/หน่วย---");
                 Gen_MemberGroup();
 
@@ -57,8 +57,7 @@ namespace icoop_webapp
                 Gen_MemberType();
  
             }
-
-            
+          
         }
 
          
@@ -270,7 +269,6 @@ namespace icoop_webapp
             Gen_Mariage_Ampher(dt.Rows[0]["mariage_province"].ToString(), dt.Rows[0]["mariage_ampher"].ToString());
             //Gen_Mariage_Ampher(dt.Rows[0]["province_code"].ToString(), dt.Rows[0]["ampher_code"].ToString());
 
-           
             try
             {
                 MemberGroup.SelectedValue = dt.Rows[0]["membgroup_code"].ToString();
@@ -300,7 +298,9 @@ namespace icoop_webapp
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Get_selectAll();
+            //Get_selectAll();
+            ModalPopupExtender1.Show();
+            
         }
 
        

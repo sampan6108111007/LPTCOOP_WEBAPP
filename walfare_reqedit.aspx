@@ -13,7 +13,7 @@
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขที่คำขอ:"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server" Width="79px"></asp:TextBox>
         <asp:Label ID="Label38" runat="server" Text="ประเภท:"></asp:Label>
-        <asp:DropDownList ID="MemberType" runat="server">
+        <asp:DropDownList ID="DLMember_Type" runat="server">
         </asp:DropDownList>
         <asp:Label ID="Label39" runat="server" Text="วันที่คุ้มครอง:"></asp:Label>
         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
@@ -22,7 +22,7 @@
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label4" runat="server" Text="เลขสมาชิก สอ.:"></asp:Label>
-        <asp:TextBox ID="TbxMember_no" runat="server">00017410</asp:TextBox>
+        <asp:TextBox ID="TbxMember_no" runat="server">00015420  </asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="..." onclick="Button1_Click" />  
         <asp:Label ID="Label45" runat="server" Text="เลขฌาปนกิจ"></asp:Label>
         <asp:TextBox ID="TextBox28" runat="server"></asp:TextBox>&nbsp
@@ -56,7 +56,7 @@
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label42" runat="server" Text="ชื่อผู้จัดการศพที่ระบุไว้:"></asp:Label>
-        <asp:TextBox ID="TextBox26" runat="server"></asp:TextBox>
+        <asp:TextBox ID="Tbx_Manage_Name" runat="server"></asp:TextBox>
         <asp:Label ID="Label43" runat="server" Text="วันที่สมัคร"></asp:Label>
         <asp:TextBox ID="TextBox27" runat="server"></asp:TextBox>
         <br />
@@ -66,6 +66,11 @@
         <br />
         <asp:Label ID="Label23" runat="server" Text="สถานะความสัมพันธ์ :"></asp:Label>
         <asp:DropDownList ID="DL_Mariage_Status" runat="server">
+            <asp:ListItem></asp:ListItem>
+            <asp:ListItem Value="0">โสด</asp:ListItem>
+            <asp:ListItem Value="1">สมรส</asp:ListItem>
+            <asp:ListItem Value="2">หย่า</asp:ListItem>
+            <asp:ListItem Value="3">ม่าย</asp:ListItem>
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label24" runat="server" Text="ชื่อคู่สมรส :"></asp:Label>
@@ -74,10 +79,11 @@
         <asp:TextBox ID="Tbx_Mariage_Sname" runat="server"></asp:TextBox>
         <br />
         <asp:Label ID="Label26" runat="server" Text="จดทะเบียนที่:"></asp:Label>
-        <asp:DropDownList ID="DL_Mariage_Ampher" runat="server">
+        <asp:DropDownList ID="DLMariage_Ampher" runat="server">
         </asp:DropDownList>
         <asp:Label ID="Label27" runat="server" Text="จังหวัด :"></asp:Label>
-        <asp:DropDownList ID="DLPrvince1" runat="server">
+        <asp:DropDownList ID="DLMariage_Provine" runat="server" 
+            onselectedindexchanged="DLPrvince_SelectedIndexChanged">
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label28" runat="server" Text="เมื่อวันที่ :"></asp:Label>
@@ -163,7 +169,8 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="ความสัมพันธ์">
                     <ItemTemplate>
-                        <asp:DropDownList ID="DropDownList15" runat="server">
+                        <asp:DropDownList ID="DropDownList15" runat="server" Height="34px" 
+                            Width="226px">
                         </asp:DropDownList>
                     </ItemTemplate>
                 </asp:TemplateField>

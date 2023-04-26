@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="w_sheet_wc_deptedit.aspx.cs" Inherits="icoop_webapp.w_sheet_wc_deptedit" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,6 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div style="text-align: left; margin-top: 72px">
     
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขฌาปนกิจ:"></asp:Label>
@@ -141,6 +144,28 @@
         <asp:TextBox ID="TextBox22" runat="server"></asp:TextBox>
     
     </div>
+    
+    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" runat="server">
+    </ajaxToolkit:ModalPopupExtender>
+
+    <asp:Panel ID="Panel1" runat="server">
+    <div id = "headerdiv" >
+        <asp:GridView ID="GridView1" runat="server">
+            <Columns>
+                <asp:BoundField HeaderText="เลขฌาปนกิจ" />
+                <asp:BoundField HeaderText="เลขสมาชิก สอ" />
+                <asp:BoundField HeaderText="ชื่อ-นามสกุล" />
+                <asp:BoundField HeaderText="บัตรประชาชน" />
+            </Columns>
+        </asp:GridView>
+        </div>
+    <div id = "detailsdiv" >
+        <asp:Label ID="Lbl_Popup" runat="server"></asp:Label>
+        </div>
+
+    <div id = "footerdiv" ></div>
+        <asp:Button ID="btnclose" runat="server" Text="ปิดหน้าจอ" />
+    </asp:Panel>
     </form>
 </body>
 </html>

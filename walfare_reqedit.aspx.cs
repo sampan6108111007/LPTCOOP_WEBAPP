@@ -33,11 +33,12 @@ namespace icoop_webapp
             {
                 //จังหวัด อำเภอ ตำบล
                 DLPrvince.Items.Insert(0, "-- เลือกจังหวัด--");
-                DLPrvince1.Items.Insert(0, "-- เลือกจังหวัด--");
+                DLMariage_Provine.Items.Insert(0, "-- เลือกจังหวัด--");
+                DLMariage_Ampher.Items.Insert(0, "--- เลือกอำเถอ --");
                 DLAmpher.Items.Insert(0, "-- เลือกอำเภอ--");
                 DLtambon.Items.Insert(0, "-- เลือกตำบล--");
                 Gen_Province();
-                Gen_Province1();
+                Gen_Mariage_Provine();
 
                 //คำนำหน้าชื่อ
                 DL_PreName.Items.Insert(0, "---เลือกคำนำหน้าชื่อ---");
@@ -47,9 +48,9 @@ namespace icoop_webapp
                 DL_Membergroup.Items.Insert(0, "---เลือกสังกัด/หน่วย---");
                 Gen_MemberGroup();
 
-                ////ประเภทสมาชิก
-                //MemberType.Items.Insert(0, "---ประเภท---");
-                //Gen_MemberType();
+                //ประเภทสมาชิก
+                DLMember_Type.Items.Insert(0, "---ประเภท---");
+                Gen_MemberType();
             }
         }
 
@@ -65,15 +66,39 @@ namespace icoop_webapp
             DLPrvince.DataBind();            
         }
 
-        private void Gen_Province1()
+        private void Gen_Mariage_Provine()
         {
             str = "select * from wcucfprovince order by province_desc";
-            DLPrvince1.DataSource = Cndb.SelectQueryDropdown(str);
-            DLPrvince1.DataMember = "show";
-            DLPrvince1.DataTextField = "province_desc";
-            DLPrvince1.DataValueField = "Province_code";
-            DLPrvince1.Items.Insert(0, "-- เลือกจังหวัด --");
-            DLPrvince1.DataBind();
+            DLMariage_Provine.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Provine.DataMember = "show";
+            DLMariage_Provine.DataTextField = "province_desc";
+            DLMariage_Provine.DataValueField = "Province_code";
+            DLMariage_Provine.Items.Insert(0, "-- เลือกจังหวัด --");
+            DLMariage_Provine.DataBind();
+
+        }
+
+        void Gen_Mariage_Ampher(string Province_code)
+        {
+            str = "select * from wcucfdistrict where province_code ='" + Province_code.ToString() + "' order by district_desc";
+            DLMariage_Ampher.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Ampher.DataMember = "show";
+            DLMariage_Ampher.DataTextField = "district_desc";
+            DLMariage_Ampher.DataValueField = "district_code";
+            DLMariage_Ampher.Items.Insert(0, "-- เลือกจังหวัด--");
+            DLMariage_Ampher.DataBind();
+
+        }
+
+        void Gen_Mariage_Ampher(string Province_code, string Ampher_code)
+        {
+            str = "select * from wcucfdistrict where district_code ='" + Ampher_code.ToString() + "'";
+            DLMariage_Ampher.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMariage_Ampher.DataMember = "show";
+            DLMariage_Ampher.DataTextField = "district_desc";
+            DLMariage_Ampher.DataValueField = "district_code";
+            DLMariage_Ampher.Items.Insert(0, "-- เลือกจังหวัด--");
+            DLMariage_Ampher.DataBind();
 
         }
 
@@ -161,6 +186,18 @@ namespace icoop_webapp
             DL_Membergroup.DataBind();
         }
 
+        private void Gen_MemberType()
+        {
+            str = "select * from wcmembertype where cs_type ='" + csType + "' order by wcmembertype_desc";
+            DLMember_Type.DataSource = Cndb.SelectQueryDropdown(str);
+            DLMember_Type.DataMember = "show";
+            DLMember_Type.DataTextField = "wcmembertype_desc";
+            DLMember_Type.DataValueField = "wftype_code";
+            DLMember_Type.Items.Insert(0, "---ประเภท---");
+            DLMember_Type.DataBind();
+
+        }
+
         void Get_selectAll()
         {
             str = "select * from wcdeptmaster where branch_Id ='" + branchId + "' and member_no ='" + TbxMember_no.Text + "'";
@@ -171,7 +208,8 @@ namespace icoop_webapp
             Tbx_Fname.Text = dt.Rows[0]["deptaccount_name"].ToString();
             Tbx_Sname.Text = dt.Rows[0]["deptaccount_sname"].ToString();
             DL_PreName.SelectedValue = dt.Rows[0]["Prename_code"].ToString();
-            MemberType.SelectedValue = dt.Rows[0]["member_type"].ToString();
+            DLMember_Type.SelectedValue = dt.Rows[0]["member_type"].ToString();
+           
             Tbx_Birthday.Text = Fc.GetshotDate(dt.Rows[0]["wfbirthday_date"].ToString(), 17);
             //Tbx_Deptopen_data.Text = Fc.GetshotDate(dt.Rows[0]["deptopen_date"].ToString(), 17);
             //Tbx_Accessdata.Text = Fc.GetshotDate(dt.Rows[0]["lastaccess_date"].ToString(), 17);
@@ -182,8 +220,13 @@ namespace icoop_webapp
             Gen_Tambol(dt.Rows[0]["ampher_code"].ToString(), dt.Rows[0]["tambol_code"].ToString());
             Get_postcode(DLAmpher.SelectedValue.ToString()); // ไปหาค่า รหัสไปรษณีย์       
             Tbx_Phone.Text = dt.Rows[0]["phone"].ToString();
-
-            //DL_Membergroup.SelectedValue = dt.Rows[0]["membgroup_code"].ToString();
+            Tbx_Mariage_Name.Text = dt.Rows[0]["mariage_name"].ToString();
+            Tbx_Mariage_Sname.Text = dt.Rows[0]["mariage_sname"].ToString();
+            Tbx_Mariage_Date.Text = Fc.GetshotDate(dt.Rows[0]["mariage_date"].ToString(), 17);
+            Tbx_Mariage_Id.Text = dt.Rows[0]["mariage_id"].ToString();
+            DLMariage_Provine.SelectedValue = dt.Rows[0]["mariage_province"].ToString().Trim();
+            Gen_Mariage_Ampher(dt.Rows[0]["mariage_province"].ToString(), dt.Rows[0]["mariage_ampher"].ToString());
+   
             try
             {
                 DL_Membergroup.SelectedValue = dt.Rows[0]["membgroup_code"].ToString();
@@ -197,7 +240,10 @@ namespace icoop_webapp
             Tbx_Age.Text = fixedAge.ToString();
             // --------------------------------------
             string Sex = dt.Rows[0]["sex"].ToString();
-            RadioButtonList1.Items.FindByValue(Sex).Selected = true;
+            RadioButtonList1.SelectedValue = Sex;
+
+            DL_Mariage_Status.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
+
         }
 
         protected void DLPrvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,5 +284,6 @@ namespace icoop_webapp
             Get_selectAll();
         }
 
+        
     }
 }
