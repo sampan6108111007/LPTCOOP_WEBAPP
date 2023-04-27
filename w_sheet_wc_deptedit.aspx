@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="w_sheet_wc_deptedit.aspx.cs" Inherits="icoop_webapp.w_sheet_wc_deptedit" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="w_sheet_wc_deptedit.aspx.cs" Inherits="icoop_webapp.w_sheet_wc_deptedit" EnableEventValidation = "false" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -7,9 +6,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+   
 </head>
+
 <body>
+
+<style type="text/css">
+.modalPopup
+{
+    background-color:white;
+    border-width: 3px;
+    border-style: solid;
+    border-color:Black;
+    padding-top: 10px;
+    width: 650px;
+    height:750px;
+    }
+    
+    .background 
+    {
+        background-color:Black;
+        filter: alpha(opacity=90);
+        opacity: 0.8;
+        }
+    .round
+    {
+        font-size:11pt;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:1px;
+        margin-bottom:1px;
+        padding:3px;
+        border-top:1px solid;
+        border-left:1px solid;
+        border-right:1px solid;
+        border-bottom:1px solid;
+        -moz-border-radius: 8px;
+        -webkit-border-radius:8px;
+        }
+   
+</style>
+ 
     <form id="form1" runat="server">
+
      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div style="text-align: left; margin-top: 72px">
     
@@ -145,17 +184,22 @@
     
     </div>
     
-    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" runat="server">
+    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
     </ajaxToolkit:ModalPopupExtender>
 
-    <asp:Panel ID="Panel1" runat="server">
-    <div id = "headerdiv" >
-        <asp:GridView ID="GridView1" runat="server">
+    <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1">
+    <div id = "headerdiv" class="header">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true"
+    OnPageIndexChanging="OnPageIndexChanging" PageSize="30">
             <Columns>
-                <asp:BoundField HeaderText="เลขฌาปนกิจ" />
-                <asp:BoundField HeaderText="เลขสมาชิก สอ" />
-                <asp:BoundField HeaderText="ชื่อ-นามสกุล" />
-                <asp:BoundField HeaderText="บัตรประชาชน" />
+                <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" 
+                    SortExpression="DEPTACCOUNT_NO" />
+                <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" 
+                    SortExpression="MEMBER_NO" />
+                <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" 
+                    SortExpression="WFACCOUNT_NAME" />
+                <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" 
+                    SortExpression="CARD_PERSON" />
             </Columns>
         </asp:GridView>
         </div>
@@ -163,9 +207,11 @@
         <asp:Label ID="Lbl_Popup" runat="server"></asp:Label>
         </div>
 
-    <div id = "footerdiv" ></div>
+    <div id = "footerdiv" class ="footer">
         <asp:Button ID="btnclose" runat="server" Text="ปิดหน้าจอ" />
+        </div>
     </asp:Panel>
+    
     </form>
 </body>
 </html>

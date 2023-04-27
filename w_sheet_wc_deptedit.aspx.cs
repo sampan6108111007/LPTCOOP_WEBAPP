@@ -55,10 +55,19 @@ namespace icoop_webapp
                 //ประเภทสมาชิก
                 MemberType.Items.Insert(0, "---ประเภท---");
                 Gen_MemberType();
+
+                //this.BindGrid();
  
             }
           
         }
+
+        //private void BindGrid() {
+        //    str = "select wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person from wcdeptmaster where branch_Id ='" + branchId + "'";
+        //    //Get_selectAll();
+        //    GridView1.DataSource = Cndb.SelectQuery(str);
+        //    GridView1.DataBind();
+        //}
 
          
         private void Gen_MemberType()
@@ -296,15 +305,44 @@ namespace icoop_webapp
             TbxPostcode.Text = dt.Rows[0]["postcode"].ToString();
         }
 
+        
+
         protected void Button1_Click(object sender, EventArgs e)
         {
+            str = "select wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person from wcdeptmaster where branch_Id ='" + branchId + "'";
             //Get_selectAll();
-            ModalPopupExtender1.Show();
             
+          
+           GridView1.DataSource = Cndb.SelectQuery(str);
+           GridView1.DataBind();
+           ModalPopupExtender1.Show();
         }
 
-       
+        protected void OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.Attributes["style"] = "cursor:pointer";
+            }
+        }
 
+        protected void OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = GridView1.SelectedRow.RowIndex;
+            string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
+            string member_no = GridView1.SelectedRow.Cells[1].Text;
+            string name = GridView1.SelectedRow.Cells[2].Text;
+            string id_card = GridView1.SelectedRow.Cells[3].Text;
+            string message = "Row Index: " + index + "\\nเลขฌาปนกิจ: " + deptaccount_no + "\\nเลขสมาชิก สอ: " + member_no + "\\nชื่อ-นามสกุล: " + member_no + "\\nบัตรประจำตัวประชาชน: " + id_card;
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + message + "');", true);
+        }
 
+        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView1.PageIndex = e.NewPageIndex;
+            //this.BindGrid();
+        }
+  
     }
 }
