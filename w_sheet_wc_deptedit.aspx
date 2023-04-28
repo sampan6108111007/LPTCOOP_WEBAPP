@@ -189,8 +189,21 @@
 
     <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1">
     <div id = "headerdiv" class="header">
+        <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
+        <asp:Label ID="Label6" runat="server" Text="เลขสมาชิก สอ :"></asp:Label>
+         <asp:TextBox ID="Tbx_member" runat="server" Height="16px" Width="86px"></asp:TextBox>
+         <asp:Label ID="Label12" runat="server" Text="ชื่อ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Fname" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
+        <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <asp:Button ID="Button3" Text="Search" runat="server" 
+            onclick="Button3_Click"  /><br />
+         <br />
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true"
-    OnPageIndexChanging="OnPageIndexChanging" PageSize="30">
+    OnPageIndexChanging="OnPageIndexChanging" PageSize="25">
             <Columns>
                 <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" 
                     SortExpression="DEPTACCOUNT_NO" />
@@ -213,5 +226,6 @@
     </asp:Panel>
     
     </form>
+
 </body>
 </html>

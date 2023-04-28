@@ -9,6 +9,7 @@ using System.Data;
 using System.Configuration;
 using System.Web.Security;
 using System.Web.UI.WebControls.WebParts;
+using System.Text.RegularExpressions;
 
 namespace icoop_webapp
 {
@@ -56,18 +57,28 @@ namespace icoop_webapp
                 MemberType.Items.Insert(0, "---ประเภท---");
                 Gen_MemberType();
 
-                //this.BindGrid();
- 
+                this.BindGrid();
+                
             }
           
         }
 
-        //private void BindGrid() {
-        //    str = "select wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person from wcdeptmaster where branch_Id ='" + branchId + "'";
-        //    //Get_selectAll();
-        //    GridView1.DataSource = Cndb.SelectQuery(str);
-        //    GridView1.DataBind();
-        //}
+       
+
+        private void BindGrid()
+        {
+            str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "' AND wcdeptmaster.deptaccount_no LIKE '%" + Tbx_Search_Account +  "%'";
+
+            //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster";
+            //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE %" + Tbx_Search_Account + "%";
+            //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE '%" + Tbx_Search_Account + "%'";
+           
+            DataTable dt = Cndb.SelectQuery(str);
+            
+            //Get_selectAll();
+            GridView1.DataSource = Cndb.SelectQuery(str);
+            GridView1.DataBind();
+        }
 
          
         private void Gen_MemberType()
@@ -309,7 +320,10 @@ namespace icoop_webapp
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            str = "select wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person from wcdeptmaster where branch_Id ='" + branchId + "'";
+
+            str = "SELECT wcdeptmaster.branch_Id,wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "'";
+            //str = "SELECT wcdeptmaster.branch_Id,wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id =" + branchId + " AND wcdeptmaster.deptaccount_no LIKE %" + Tbx_Search_Account +  "%";
+           // str = "select wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person from wcdeptmaster where branch_Id ='" + branchId + "'";
             //Get_selectAll();
             
           
@@ -318,12 +332,14 @@ namespace icoop_webapp
            ModalPopupExtender1.Show();
         }
 
-        protected void OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
-                e.Row.Attributes["style"] = "cursor:pointer";
+                e.Row.Cells[0].Text = Regex.Replace(e.Row.Cells[0].Text, Tbx_Search_Account.Text.Trim(), delegate(Match match)
+                {
+                    return string.Format("<span style = 'background-color:#D9EDF7'>{0}</span>", match.Value);
+                }, RegexOptions.IgnoreCase);
             }
         }
 
@@ -334,7 +350,7 @@ namespace icoop_webapp
             string member_no = GridView1.SelectedRow.Cells[1].Text;
             string name = GridView1.SelectedRow.Cells[2].Text;
             string id_card = GridView1.SelectedRow.Cells[3].Text;
-            string message = "Row Index: " + index + "\\nเลขฌาปนกิจ: " + deptaccount_no + "\\nเลขสมาชิก สอ: " + member_no + "\\nชื่อ-นามสกุล: " + member_no + "\\nบัตรประจำตัวประชาชน: " + id_card;
+            string message = "Row Index: " + index + "\\nเลขฌาปนกิจ: " + deptaccount_no + "\\nเลขสมาชิก สอ: " + member_no + "\\nชื่อ-นามสกุล: " + name + "\\nบัตรประจำตัวประชาชน: " + id_card;
             ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + message + "');", true);
         }
 
@@ -343,6 +359,13 @@ namespace icoop_webapp
             GridView1.PageIndex = e.NewPageIndex;
             //this.BindGrid();
         }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+
+      
   
     }
 }
