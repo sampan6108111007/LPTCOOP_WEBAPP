@@ -50,6 +50,10 @@
     <form id="form1" runat="server">
 
      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+      <asp:updatepanel ID="Updatepanel1" runat="server">
+ <ContentTemplate>
+ </ContentTemplate>
+ </asp:updatepanel>
     <div style="text-align: left; margin-top: 72px">
     
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขฌาปนกิจ:"></asp:Label>
@@ -187,7 +191,7 @@
     <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
     </ajaxToolkit:ModalPopupExtender>
 
-    <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1">
+    <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1"  Style="display: none">
     <div id = "headerdiv" class="header">
         <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
         <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
