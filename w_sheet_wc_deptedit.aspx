@@ -189,7 +189,7 @@
     </div>
     
     <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
-    </ajaxToolkit:ModalPopupExtender>
+    </ajaxToolkit:ModalPopupExtender >
 
     <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1"  Style="display: none">
     <div id = "headerdiv" class="header">
@@ -206,8 +206,8 @@
         <asp:Button ID="Button3" Text="Search" runat="server" 
             onclick="Button3_Click"  /><br />
          <br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true"
-    OnPageIndexChanging="OnPageIndexChanging" PageSize="25">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true" 
+    OnPageIndexChanging="OnPageIndexChanging" PageSize="25" >
             <Columns>
                 <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" 
                     SortExpression="DEPTACCOUNT_NO" />
