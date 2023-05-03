@@ -186,11 +186,10 @@
         <asp:Label ID="Label37" runat="server" Text="หมายเหตุ  :"></asp:Label>
         <asp:TextBox ID="TextBox22" runat="server"></asp:TextBox>
     
-    </div>
-    
-    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
+   <%-- </div>
+    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" 
+    TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
     </ajaxToolkit:ModalPopupExtender >
-
     <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1"  Style="display: none">
     <div id = "headerdiv" class="header">
         <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
@@ -205,8 +204,38 @@
         <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         <asp:Button ID="Button3" Text="Search" runat="server" 
             onclick="Button3_Click"  /><br />
-         <br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true" 
+         <br />--%>
+
+     <%--    <div style="width: 500px">
+    <asp:GridView ID="GridView1" runat="server" CssClass="display compact" AutoGenerateColumns="false">
+        <Columns>
+            <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" />
+             <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" />
+            <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" />
+            <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" />
+        </Columns>
+    </asp:GridView>
+</div>--%>
+
+<div id="dialog" style="display: none">
+<asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="100px"></asp:TextBox>
+       <asp:Button  Text="Search" runat="server" OnClick="Search" />
+<hr />
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="OnPageIndexChanging" OnRowDataBound="OnRowDataBound"
+        PageSize="20" AllowPaging="true">
+         
+        <Columns>
+            <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" ItemStyle-Width="200" />
+            <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" ItemStyle-Width="150" />
+            <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" ItemStyle-Width="1000" />
+            <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" ItemStyle-Width="200" />
+        </Columns>
+    </asp:GridView>
+</div>
+
+       <%-- <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+        OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true" 
     OnPageIndexChanging="OnPageIndexChanging" PageSize="25" >
             <Columns>
                 <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" 
@@ -218,8 +247,8 @@
                 <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" 
                     SortExpression="CARD_PERSON" />
             </Columns>
-        </asp:GridView>
-        </div>
+        </asp:GridView>--%>
+    <%--    </div>
     <div id = "detailsdiv" >
         <asp:Label ID="Lbl_Popup" runat="server"></asp:Label>
         </div>
@@ -227,9 +256,34 @@
     <div id = "footerdiv" class ="footer">
         <asp:Button ID="btnclose" runat="server" Text="ปิดหน้าจอ" />
         </div>
-    </asp:Panel>
-    
-    </form>
+    </asp:Panel>--%>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+    rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        $("[id*=Button1]").click(function () {
+            ShowPopup();
+            return false;
+        });
+    });
+    function ShowPopup() {
+        $("#dialog").dialog({
+            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก",
+            width: 1000,
+            buttons: {
+                Ok: function () {
+                    $(this).dialog('close');
+                }
+            },
+            modal: true
+        });
 
+    }
+</script>
+
+    </form>
+   
 </body>
 </html>
