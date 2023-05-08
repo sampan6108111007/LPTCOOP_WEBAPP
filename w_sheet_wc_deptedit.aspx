@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="w_sheet_wc_deptedit.aspx.cs" Inherits="icoop_webapp.w_sheet_wc_deptedit" EnableEventValidation = "false" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -57,8 +57,8 @@
     <div style="text-align: left; margin-top: 72px">
     
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขฌาปนกิจ:"></asp:Label>
-        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px">00008407  </asp:TextBox>
-        <asp:Button ID="Button1" runat="server" Text="..." Width="24px" 
+        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px"></asp:TextBox>
+        <asp:Button ID="btnShowPopup" runat="server" Text="..." Width="24px" 
             onclick="Button1_Click" />
         <asp:Label ID="Label2" runat="server" Text="ชื่อสมาชิก:"></asp:Label>
         <asp:DropDownList ID="PreName" runat="server" Width="91px">
@@ -186,6 +186,16 @@
         <asp:Label ID="Label37" runat="server" Text="หมายเหตุ  :"></asp:Label>
         <asp:TextBox ID="TextBox22" runat="server"></asp:TextBox>
     
+
+   <%-- <asp:Button ID="Button1" runat="server" Text="Fill Form in Popup" />  --%>
+<%--<cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="Button1"  
+    CancelControlID="Button4" BackgroundCssClass="background">  
+</cc1:ModalPopupExtender>  
+<asp:Panel ID="Panl1" runat="server" CssClass="modalPopup round" align="center" BorderStyle="Solid" BorderWidth="1" style = "display:none">  
+    <iframe style=" width: 650px; height: 700px;" id="irm1" src="PopUp_w_sheet_wc_deptedit.aspx" runat="server"></iframe>  
+   <br/>  
+    <asp:Button ID="Button4" runat="server" Text="Close" />  
+</asp:Panel>  --%>
    <%-- </div>
     <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" 
     TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
@@ -216,20 +226,48 @@
         </Columns>
     </asp:GridView>
 </div>--%>
-
+<%--<asp:Button ID="btnShowPopup" runat="server" Text="Show Popup" />--%>
 <div id="dialog" style="display: none">
-<asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
-        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="100px"></asp:TextBox>
-       <asp:Button  Text="Search" runat="server" OnClick="Search" />
+ <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
+        <asp:Label ID="Label6" runat="server" Text="เลขสมาชิก สอ :"></asp:Label>
+         <asp:TextBox ID="Tbx_member" runat="server" Height="16px" Width="86px"></asp:TextBox>
+         <asp:Label ID="Label12" runat="server" Text="ชื่อ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Fname" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
+        <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+         <asp:Button ID="Button3"  Text="Search" runat="server" OnClick="Search" /><br />
+         <br />
+      
 <hr />
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" OnPageIndexChanging="OnPageIndexChanging" OnRowDataBound="OnRowDataBound"
-        PageSize="20" AllowPaging="true">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+        OnPageIndexChanging="OnPageIndexChanging" PageSize="25" AllowPaging="True" OnRowDataBound="OnRowDataBound"
+        onselectedindexchanged="GridView1_SelectedIndexChanged">
          
         <Columns>
-            <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" ItemStyle-Width="200" />
-            <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" ItemStyle-Width="150" />
-            <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" ItemStyle-Width="1000" />
-            <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" ItemStyle-Width="200" />
+            <asp:BoundField DataField="deptaccount_no" HeaderText="เลขฌาปนกิจ" 
+                ItemStyle-Width="200" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="member_no" HeaderText="เลขสมาชิก สอ" 
+                ItemStyle-Width="150" >
+<ItemStyle Width="150px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="wfaccount_name" HeaderText="ชื่อ นามสกุล" 
+                ItemStyle-Width="1000" >
+<ItemStyle Width="1000px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="card_person" HeaderText="บัตรประชาชน" 
+                ItemStyle-Width="200" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <%--<asp:TemplateField>
+            <ItemTemplate>
+                <asp:Button ID="btnDetail" Text="Get Details" runat="server" OnClick="OnGetDetails" />
+            </ItemTemplate>
+        </asp:TemplateField>--%>
         </Columns>
     </asp:GridView>
 </div>
@@ -263,7 +301,7 @@
     rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(function () {
-        $("[id*=Button1]").click(function () {
+        $("[id*=btnShowPopup]").click(function () {
             ShowPopup();
             return false;
         });

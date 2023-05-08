@@ -37,6 +37,7 @@ namespace icoop_webapp
 
             if (!this.IsPostBack)
             {
+                //Get_Request();
                 this.BindGrid();
                 //this.AccountNo();
               
@@ -79,22 +80,20 @@ namespace icoop_webapp
             //str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "'";
            // str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "' AND wcdeptmaster.deptaccount_no LIKE ''%'" + @deptaccount_no + "'%''";
 
-            str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster";
+            //str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster WHERE wcdeptmaster.branch_Id ='" + branchId + "'";
+            str = "SELECT * FROM wcdeptmaster WHERE wcdeptmaster.branch_Id ='" + branchId + "'";
             //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE %" + Tbx_Search_Account + "%";
             //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE '%" + Tbx_Search_Account + "%'";
             //Cndb.("@ContactName", Tbx_Search_Account.Text.Trim());
             DataTable dt = Cndb.SelectQuery(str);
 
 
-            //Get_selectAll();
+           // Get_selectAll();
             GridView1.DataSource = Cndb.SelectQuery(str);
             GridView1.DataBind();
 
         }
-
-
-
-         
+ 
         private void Gen_MemberType()
         {
             str = "select * from wcmembertype where cs_type ='"+csType+"' order by wcmembertype_desc";
@@ -128,8 +127,7 @@ namespace icoop_webapp
             MemberGroup.Items.Insert(0, "---เลือกสังกัด/หน่วย---");
             MemberGroup.DataBind();
         }
-
-       
+   
         private void Gen_Prename()
         {
             str = "select * from wcucfprename order by prename_desc";
@@ -140,8 +138,6 @@ namespace icoop_webapp
             PreName.Items.Insert(0, "---เลือกคำนำหน้าชื่อ---");
             PreName.DataBind();
         }
-
-
 
         private void Gen_Province()
         {
@@ -268,11 +264,21 @@ namespace icoop_webapp
 
         }
 
-        void Get_selectAll()
+        void Get_selectAll(string dept_no)
         {
            // deptaccount_no = "00008601";
+            string vWhere = "";
 
-            str = "select * from wcdeptmaster where branch_Id ='" + branchId + "' and deptaccount_no='" + TbxAccount_no.Text + "'";
+           // str = "select * from wcdeptmaster where branch_Id ='" + branchId + "' and deptaccount_no='" + TbxAccount_no.Text + "'";
+            str = "select * from wcdeptmaster where deptclose_status=0 and branch_Id ='" + branchId + "'";
+
+            if (dept_no!="")
+            {
+                vWhere=" and deptaccount_no='"+ dept_no +"'";
+            }
+
+            str += vWhere;
+
             DataTable dt = Cndb.SelectQuery(str);
    
             if (dt.Rows.Count <= 0) { return; }
@@ -280,7 +286,12 @@ namespace icoop_webapp
             Tbx_Name.Text = dt.Rows[0]["deptaccount_name"].ToString();
             Tbx_Sername.Text = dt.Rows[0]["deptaccount_sname"].ToString();
             PreName.SelectedValue = dt.Rows[0]["Prename_code"].ToString();
-            MemberType.SelectedValue = dt.Rows[0]["member_type"].ToString();
+            try
+            {
+                MemberType.SelectedValue = dt.Rows[0]["member_type"].ToString();
+            }
+            catch (Exception){ }
+            
             Tbx_Birthday.Text = Fc.GetshotDate(dt.Rows[0]["wfbirthday_date"].ToString(), 17);
             Tbx_Deptopen_data.Text = Fc.GetshotDate(dt.Rows[0]["deptopen_date"].ToString(), 17);
             Tbx_Accessdata.Text = Fc.GetshotDate(dt.Rows[0]["lastaccess_date"].ToString(), 17);
@@ -288,10 +299,35 @@ namespace icoop_webapp
             Tbx_member_no.Text = dt.Rows[0]["member_no"].ToString();
             Tbx_Idcard.Text = dt.Rows[0]["card_person"].ToString();
             Tbx_Contact_Address.Text = dt.Rows[0]["contact_address"].ToString();
-            DLPrvince.SelectedValue = dt.Rows[0]["province_code"].ToString().Trim();
-            Gen_Ampher(dt.Rows[0]["province_code"].ToString(), dt.Rows[0]["ampher_code"].ToString());
-            Gen_Tambol(dt.Rows[0]["ampher_code"].ToString(), dt.Rows[0]["tambol_code"].ToString());
-            Get_postcode(DLAmpher.SelectedValue.ToString()); // ไปหาค่า รหัสไปรษณีย์       
+
+            try
+            {
+                DLPrvince.SelectedValue = dt.Rows[0]["province_code"].ToString().Trim();
+            }
+            catch (Exception) { }
+
+            try
+            {
+                Gen_Ampher(dt.Rows[0]["province_code"].ToString(), dt.Rows[0]["ampher_code"].ToString());
+            }
+            catch (Exception) { }
+            try
+            {
+                Gen_Tambol(dt.Rows[0]["ampher_code"].ToString(), dt.Rows[0]["tambol_code"].ToString());
+            }
+            catch (Exception) { }
+            try
+            {
+            Get_postcode(DLAmpher.SelectedValue.ToString()); // ไปหาค่า รหัสไปรษณีย์       {
+            }            
+            catch (Exception) { }
+
+
+            try
+            {
+                DLMariage_Provine.SelectedValue = dt.Rows[0]["mariage_province"].ToString().Trim();
+            }
+            catch (Exception) { }
             Tbx_Phone.Text = dt.Rows[0]["phone"].ToString();
             Tbx_Manage_Name.Text = dt.Rows[0]["manage_corpse_name"].ToString();
             DLStatus.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
@@ -299,7 +335,7 @@ namespace icoop_webapp
             Tbx_Mariage_Sname.Text = dt.Rows[0]["mariage_sname"].ToString();
             Tbx_Mariage_Date.Text = Fc.GetshotDate(dt.Rows[0]["mariage_date"].ToString(), 17);
             Tbx_Mariage_Id.Text = dt.Rows[0]["mariage_id"].ToString();
-            DLMariage_Provine.SelectedValue = dt.Rows[0]["mariage_province"].ToString().Trim();
+            
             Gen_Mariage_Ampher(dt.Rows[0]["mariage_province"].ToString(), dt.Rows[0]["mariage_ampher"].ToString());
             //Gen_Mariage_Ampher(dt.Rows[0]["province_code"].ToString(), dt.Rows[0]["ampher_code"].ToString());
 
@@ -322,6 +358,17 @@ namespace icoop_webapp
 
         }
 
+        //void Get_Request()
+        //{
+        //    DataTable dt = Cndb.SelectQuery(str);
+        //    TbxAccount_no.Text = Request.QueryString["TbxAccount_no"];
+        //    //Tbx_member_no.Text = Request.QueryString["Tbx_member_no"];
+        //    //Tbx_Name.Text = Request.QueryString["Tbx_Name"];
+        //    //Tbx_Idcard.Text = Request.QueryString["Tbx_Idcard"];
+        //    //Tbx_Phone.Text = Request.QueryString["phone"];
+
+        //}
+
         void Get_postcode(string Amper_code)
         {
             str = "select * from wcucfdistrict where district_code ='" + DLAmpher.SelectedValue.ToString() + "'";
@@ -343,7 +390,10 @@ namespace icoop_webapp
           
            //GridView1.DataSource = Cndb.SelectQuery(str);
            //GridView1.DataBind();
-           //ModalPopupExtender1.Show();
+            //mp1.Show();
+            
+
+           //TbxAccount_no.Text=
         }
 
         //protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -358,29 +408,47 @@ namespace icoop_webapp
         //}
 
 
-        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Cells[0].Text = Regex.Replace(e.Row.Cells[0].Text, Tbx_Search_Account.Text.Trim(), delegate(Match match)
-                {
-                    return string.Format("<span style = 'background-color:#D9EDF7'>{0}</span>", match.Value);
-                }, RegexOptions.IgnoreCase);
-            }
-        }
-
-
-
-        //protected void OnSelectedIndexChanged(object sender, EventArgs e)
+        //protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         //{
-        //    int index = GridView1.SelectedRow.RowIndex;
-        //    string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
-        //    string member_no = GridView1.SelectedRow.Cells[1].Text;
-        //    string name = GridView1.SelectedRow.Cells[2].Text;
-        //    string id_card = GridView1.SelectedRow.Cells[3].Text;
-        //    string message = "Row Index: " + index + "\\nเลขฌาปนกิจ: " + deptaccount_no + "\\nเลขสมาชิก สอ: " + member_no + "\\nชื่อ-นามสกุล: " + name + "\\nบัตรประจำตัวประชาชน: " + id_card;
-        //    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + message + "');", true);
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        e.Row.Cells[0].Text = Regex.Replace(e.Row.Cells[0].Text, Tbx_Search_Account.Text.Trim(), delegate(Match match)
+        //        {
+        //            return string.Format("<span style = 'background-color:#D9EDF7'>{0}</span>", match.Value);
+        //        }, RegexOptions.IgnoreCase);
+        //    }
         //}
+
+
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //int index = GridView1.SelectedRow.RowIndex;
+            string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
+
+
+            Msgbox.Show(deptaccount_no);
+
+            //string member_no = GridView1.SelectedRow.Cells[1].Text;
+            //string name = GridView1.SelectedRow.Cells[2].Text;
+            //string id_card = GridView1.SelectedRow.Cells[3].Text;
+            //string message = "Row Index: " + index + "\\nเลขฌาปนกิจ: " + deptaccount_no + "\\nเลขสมาชิก สอ: " + member_no + "\\nชื่อ-นามสกุล: " + name + "\\nบัตรประจำตัวประชาชน: " + id_card;
+            //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + message + "');", true);
+
+           // string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
+           // string member_no = GridView1.SelectedRow.Cells[1].Text;
+           // string wfaccount_name = GridView1.SelectedRow.Cells[2].Text;
+           // string card_preson = GridView1.SelectedRow.Cells[3].Text;
+
+           // //Get_selectAll();
+
+           // Response.Redirect("w_sheet_wc_deptedit.aspx?TbxAccount_no=" + deptaccount_no);
+           //    + "&Tbx_member_no=" + member_no + "&Tbx_Name=" + wfaccount_name 
+           //    + "&Tbx_Idcard=" + card_preson );
+
+            Get_selectAll(deptaccount_no);
+  
+        }
 
         //protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         //{
@@ -395,11 +463,14 @@ namespace icoop_webapp
             ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
         }
 
-        //protected void Button3_Click(object sender, EventArgs e)
-        //{
-        //    this.BindGrid();
-        //}
-
+        protected void OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.Attributes["style"] = "cursor:pointer";
+            }
+        }
        
     }
 }

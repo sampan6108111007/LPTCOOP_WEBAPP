@@ -60,6 +60,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="connet.aspx" />
+    <Content Include="PopUp_w_sheet_wc_deptedit.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -75,6 +76,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="WebForm1.aspx" />
     <Content Include="w_sheet_allmember_icmt_ctrl.aspx" />
     <Content Include="w_sheet_wc_deptedit.aspx" />
     <Content Include="w_sheet_wc_inform.aspx" />
@@ -142,6 +144,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="myDatabaseEntities.cs" />
+    <Compile Include="PopUp_w_sheet_wc_deptedit.aspx.cs">
+      <DependentUpon>PopUp_w_sheet_wc_deptedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopUp_w_sheet_wc_deptedit.aspx.designer.cs">
+      <DependentUpon>PopUp_w_sheet_wc_deptedit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -163,6 +172,13 @@
     </Compile>
     <Compile Include="walfare_reqedit.aspx.designer.cs">
       <DependentUpon>walfare_reqedit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="w_sheet_allmember_icmt_ctrl.aspx.cs">
       <DependentUpon>w_sheet_allmember_icmt_ctrl.aspx</DependentUpon>
@@ -204,7 +220,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52309</DevelopmentServerPort>
+          <DevelopmentServerPort>50846</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
