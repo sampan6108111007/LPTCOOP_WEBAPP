@@ -46,6 +46,7 @@
         }
    
 </style>
+    
  
     <form id="form1" runat="server">
 
@@ -111,7 +112,8 @@
         <asp:TextBox ID="Tbx_Manage_Name" runat="server"></asp:TextBox>
         <asp:Label ID="Label18" runat="server" Text="เงินสงเคราะห์ล่วงหน้าคงเหลือ"></asp:Label>
         <asp:TextBox ID="TextBox14" runat="server"></asp:TextBox>
-        <asp:Button ID="Button2" runat="server" Text="พิมพ์รายละเอียด" />
+        <asp:Button ID="Button2" runat="server" Text="พิมพ์รายละเอียด" 
+            onclick="Button2_Click" />
         <br />
         <br />
         <asp:Label ID="Label19" runat="server" style="font-weight: 700" 
@@ -162,6 +164,7 @@
         <br />
         <asp:Label ID="Label31" runat="server" Text="ที่อยู่ :"></asp:Label>
         <asp:TextBox ID="Tbx_Contact_Address" runat="server" Width="347px"></asp:TextBox>
+       
         <br />
         <asp:Label ID="Label32" runat="server" Text="ตำบล:"></asp:Label>
         <asp:DropDownList ID="DLtambon" runat="server">
@@ -185,50 +188,12 @@
         <br />
         <asp:Label ID="Label37" runat="server" Text="หมายเหตุ  :"></asp:Label>
         <asp:TextBox ID="TextBox22" runat="server"></asp:TextBox>
+
+
     
 
-   <%-- <asp:Button ID="Button1" runat="server" Text="Fill Form in Popup" />  --%>
-<%--<cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="Button1"  
-    CancelControlID="Button4" BackgroundCssClass="background">  
-</cc1:ModalPopupExtender>  
-<asp:Panel ID="Panl1" runat="server" CssClass="modalPopup round" align="center" BorderStyle="Solid" BorderWidth="1" style = "display:none">  
-    <iframe style=" width: 650px; height: 700px;" id="irm1" src="PopUp_w_sheet_wc_deptedit.aspx" runat="server"></iframe>  
-   <br/>  
-    <asp:Button ID="Button4" runat="server" Text="Close" />  
-</asp:Panel>  --%>
-   <%-- </div>
-    <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" PopupControlID = "Panel1" 
-    TargetControlID = "Lbl_Popup" CancelControlID = "btnclose" BackgroundCssClass="background" runat="server">
-    </ajaxToolkit:ModalPopupExtender >
-    <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup round" BorderStyle="Solid" BorderWidth="1"  Style="display: none">
-    <div id = "headerdiv" class="header">
-        <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
-        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
-         <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
-        <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
-        <asp:Label ID="Label6" runat="server" Text="เลขสมาชิก สอ :"></asp:Label>
-         <asp:TextBox ID="Tbx_member" runat="server" Height="16px" Width="86px"></asp:TextBox>
-         <asp:Label ID="Label12" runat="server" Text="ชื่อ :"></asp:Label>
-        <asp:TextBox ID="Tbx_Fname" runat="server" Height="20px" Width="85px"></asp:TextBox>
-         <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
-        <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        <asp:Button ID="Button3" Text="Search" runat="server" 
-            onclick="Button3_Click"  /><br />
-         <br />--%>
-
-     <%--    <div style="width: 500px">
-    <asp:GridView ID="GridView1" runat="server" CssClass="display compact" AutoGenerateColumns="false">
-        <Columns>
-            <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" />
-             <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" />
-            <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" />
-            <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" />
-        </Columns>
-    </asp:GridView>
-</div>--%>
-<%--<asp:Button ID="btnShowPopup" runat="server" Text="Show Popup" />--%>
 <div id="dialog" style="display: none">
- <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+ <%--<asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
         <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
          <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
         <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
@@ -238,12 +203,13 @@
         <asp:TextBox ID="Tbx_Fname" runat="server" Height="20px" Width="85px"></asp:TextBox>
          <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
         <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-         <asp:Button ID="Button3"  Text="Search" runat="server" OnClick="Search" /><br />
-         <br />
+         <asp:Button ID="Button3"  Text="Search" runat="server" OnClick="Button3_Click" />
+          <asp:Button ID="Button4" runat="server" onclick="Button4_Click" Text="Button" />
+         <br />--%>
       
 <hr />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-        OnPageIndexChanging="OnPageIndexChanging" PageSize="25" AllowPaging="True" OnRowDataBound="OnRowDataBound"
+        OnPageIndexChanging="OnPageIndexChanging" PageSize="20" AllowPaging="True" OnRowDataBound="OnRowDataBound"
         onselectedindexchanged="GridView1_SelectedIndexChanged">
          
         <Columns>
@@ -272,29 +238,6 @@
     </asp:GridView>
 </div>
 
-       <%-- <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-        OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged" AllowPaging="true" 
-    OnPageIndexChanging="OnPageIndexChanging" PageSize="25" >
-            <Columns>
-                <asp:BoundField DataField="DEPTACCOUNT_NO" HeaderText="เลขฌาปนกิจ" 
-                    SortExpression="DEPTACCOUNT_NO" />
-                <asp:BoundField DataField="MEMBER_NO" HeaderText="เลขสมาชิก สอ" 
-                    SortExpression="MEMBER_NO" />
-                <asp:BoundField DataField="WFACCOUNT_NAME" HeaderText="ชื่อ นามสกุล" 
-                    SortExpression="WFACCOUNT_NAME" />
-                <asp:BoundField DataField="CARD_PERSON" HeaderText="บัตรประชาชน" 
-                    SortExpression="CARD_PERSON" />
-            </Columns>
-        </asp:GridView>--%>
-    <%--    </div>
-    <div id = "detailsdiv" >
-        <asp:Label ID="Lbl_Popup" runat="server"></asp:Label>
-        </div>
-
-    <div id = "footerdiv" class ="footer">
-        <asp:Button ID="btnclose" runat="server" Text="ปิดหน้าจอ" />
-        </div>
-    </asp:Panel>--%>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
 <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
@@ -305,19 +248,22 @@
             ShowPopup();
             return false;
         });
+       
     });
     function ShowPopup() {
-        $("#dialog").dialog({
-            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก",
+       $("#dialog").dialog({
+            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก", 
             width: 1000,
+            lable: "ffff",
             buttons: {
                 Ok: function () {
                     $(this).dialog('close');
                 }
             },
             modal: true
-        });
 
+        });
+    
     }
 </script>
 

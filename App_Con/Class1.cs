@@ -55,6 +55,31 @@ public  class Class1 : System.Web.UI.Page
             return;
         }
     }
+    public string Get_MemberFormate(string member_no)
+    {
+        string mb_no = "";
+        Int32 mb = Convert.ToInt32(member_no);
+        switch (mb.ToString().Length)
+        {
+            case 2: mb_no = "000000" + mb.ToString();
+                break;
+            case 3: mb_no = "00000" + mb.ToString();
+                break;
+            case 4: mb_no = "0000" + mb.ToString();
+                break;
+            case 5: mb_no = "000" + mb.ToString();
+                break;
+            case 6: mb_no = "00" + mb.ToString();
+                break;
+            case 7: mb_no = "0" + mb.ToString();
+                break;
+            default:
+                mb_no = member_no;           
+                break;
+        }
+
+        return mb_no;
+    }
     public DataTable SelectQuery(string Str)
     {
         string strr = Str;
