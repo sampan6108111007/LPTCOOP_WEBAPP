@@ -1,4 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Globalization;
+using System.Data;
+using System.Configuration;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,19 +31,31 @@ namespace icoop_webapp
         string branchId;
         string csType;
         string deptaccount_no;
-        
-        
+        string vWhere="";
+        HttpCookie myCookie = new HttpCookie("myCookie");
         protected void Page_Load(object sender, EventArgs e)
         {
+
+          
             Cndb.GetDb();
 
             csType = "1";
             branchId = "1001";
+            try
+            {
+                vWhere = Request.Cookies["myCookie"]["v"].ToString();
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+            
 
             if (!this.IsPostBack)
             {
                 //Get_Request();
-                this.BindGrid();
+                this.BindGrid("");
                 
                 //จังหวัด อำเภอ ตำบล
                 DLPrvince.Items.Insert(0, "-- เลือกจังหวัด--");
@@ -58,7 +75,7 @@ namespace icoop_webapp
 
                 MemberGroup.Items.Insert(0, "---เลือกสังกัด/หน่วย---");
                 Gen_MemberGroup();
-
+                
                 //ประเภทสมาชิก
                 MemberType.Items.Insert(0, "---ประเภท---");
                 Gen_MemberType();        
@@ -68,34 +85,57 @@ namespace icoop_webapp
 
         protected void Search(object sender, EventArgs e)
         {
-            this.BindGrid();
+            //this.BindGrid();
         }
-
-        private void BindGrid()
+        protected void ShowModal(object sender, EventArgs e)
         {
-            string vWhere = "";      
+           // string vWhere = "";
+            
+            ScriptManager.RegisterStartupScript((sender as Control), this.GetType(), "Popup", "ShowPopup();", true);
+            //Msgbox.Show(tttt.Text);
+           // Msgbox.Show(txtSearch.Text);
+            vWhere = "";
             str = "SELECT * FROM wcdeptmaster WHERE deptclose_status=0 and wcdeptmaster.branch_Id ='" + branchId + "'";
-            //if (Tbx_Search_Account.Text != "")
-            //{
-            //    vWhere=" and deptcount_no='"+ Tbx_Search_Account.Text  +"'";
-            //}
-            //else if (Tbx_member.Text!="")
-            //{
-            //     vWhere=" and member_no='"+ Cndb.Get_MemberFormate(Tbx_member.Text) +"'";            
-            //}
-            //else if (Tbx_Fname.Text != "" && Tbx_Sname.Text=="")
-            //{
-            //    vWhere =" and deptaccount_name like '"+ Tbx_Fname.Text + "'";
-            //}
-            //else if (Tbx_Fname.Text == "" && Tbx_Sname.Text != "")
-            //{
-            //    vWhere = " and deptaccount_sname like '" + Tbx_Sname.Text + "'";
-            //}
-            //else if (Tbx_Fname.Text != "" && Tbx_Sname.Text != "")
-            //{
-            //    vWhere = " and deptaccount_sname like '" + Tbx_Fname.Text + "' and deptaccount_sname like '" + Tbx_Sname.Text + "'";
-            //}
 
+           
+            if (Tbx_Search_Account.Text!="" )
+            {
+                vWhere = " and deptaccount_no like '%" + Tbx_Search_Account.Text + "%'";
+            }
+            else if (Tbx_Search_Idcard.Text != "")
+            {
+                vWhere = " and card_person like '%" + Tbx_Search_Idcard.Text + "%'";
+            }
+            else if (Tbx_member.Text != "")
+            {
+                vWhere = " and member_no='" + Cndb.Get_MemberFormate(Tbx_member.Text) + "'";
+            }
+            else if (Tbx_Fname.Text != "" && Tbx_Sname.Text == "")
+            {
+                vWhere = " and deptaccount_name like '%" + Tbx_Fname.Text + "%'";
+            }
+            else if (Tbx_Fname.Text == "" && Tbx_Sname.Text != "")
+            {
+                vWhere = " and deptaccount_sname like '%" + Tbx_Sname.Text + "%'";
+            }
+            else if (Tbx_Fname.Text != "" && Tbx_Sname.Text != "")
+            {
+                vWhere = " and deptaccount_sname like '%" + Tbx_Fname.Text + "%' and deptaccount_sname like '%" + Tbx_Sname.Text + "%'";
+            }
+
+
+            //myCookie["v"] = vWhere;
+            Label42.Text = vWhere;
+           
+            BindGrid(vWhere);
+        }
+        private void BindGrid(string vWhere)
+        {
+            
+           string str = "SELECT * FROM wcdeptmaster WHERE  wcdeptmaster.branch_Id ='" + branchId + "'";
+           
+           
+            
 
 
 
@@ -287,7 +327,7 @@ namespace icoop_webapp
         {
            
             string vWhere = "";
-            str = "select * from wcdeptmaster where deptclose_status=0 and branch_Id ='" + branchId + "'";
+            str = "select * from wcdeptmaster where branch_Id ='" + branchId + "'";
 
             if (dept_no!="")
             {
@@ -316,6 +356,9 @@ namespace icoop_webapp
             Tbx_member_no.Text = dt.Rows[0]["member_no"].ToString();
             Tbx_Idcard.Text = dt.Rows[0]["card_person"].ToString();
             Tbx_Contact_Address.Text = dt.Rows[0]["contact_address"].ToString();
+           // Txt_Deptclose_Status.Text = Fc.GetshotDate(dt.Rows[0]["deptclose_status"].ToString(), 17);
+            Txt_Deptclose_Status.Text = Fc.GetshotDate(dt.Rows[0]["deptclose_status"].ToString(), 17);
+            Txt_Die_Date.Text = Fc.GetshotDate(dt.Rows[0]["die_date"].ToString(), 17);
 
             try
             {
@@ -391,8 +434,9 @@ namespace icoop_webapp
         
 
         protected void Button1_Click(object sender, EventArgs e)
-        {    
-            this.BindGrid();
+        {
+           
+           // this.BindGrid("");
  
         }
 
@@ -400,14 +444,26 @@ namespace icoop_webapp
         {    
             string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
             Get_selectAll(deptaccount_no);
+            Tbx_Search_Account.Text = "";
+            Tbx_Search_Idcard.Text = "";
+            Tbx_member.Text ="";
+            Tbx_Fname.Text = "";
+            Tbx_Sname.Text = "";
+            Label42.Text = "";
+            BindGrid("");
         }
 
         
 
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            string V = Label42.Text;
+
+
             GridView1.PageIndex = e.NewPageIndex;
-            this.BindGrid();
+            
+            this.BindGrid(V);
+
             ClientScript.RegisterStartupScript(this.GetType(), "Popup", "ShowPopup();", true);
         }
 
@@ -415,15 +471,25 @@ namespace icoop_webapp
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                                                
                 e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
                 e.Row.Attributes["style"] = "cursor:pointer";
             }
+
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
 
         }
+  
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
   
     }
 }

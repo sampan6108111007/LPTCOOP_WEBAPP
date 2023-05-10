@@ -102,9 +102,9 @@
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label14" runat="server" Text="วันที่พ้นสภาพ:"></asp:Label>
-        <asp:TextBox ID="TextBox10" runat="server"></asp:TextBox>
+        <asp:TextBox ID="Txt_Deptclose_Status" runat="server"></asp:TextBox>
         <asp:Label ID="Label15" runat="server" Text="วันที่เสียชีวิต:"></asp:Label>
-        <asp:TextBox ID="TextBox11" runat="server"></asp:TextBox>
+        <asp:TextBox ID="Txt_Die_Date" runat="server"></asp:TextBox>
         <asp:Label ID="Label16" runat="server" Text="สถานะภาพ:"></asp:Label>
         <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
         <br />
@@ -204,8 +204,26 @@
          <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
         <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
          <asp:Button ID="Button3"  Text="Search" runat="server" OnClick="Button3_Click" />
-          <asp:Button ID="Button4" runat="server" onclick="Button4_Click" Text="Button" />
+          
          <br />--%>
+
+        <%-- <p style="text-align: right; width: 500px; margin-top: 50px; margin-left: 150px">  
+       <span style="font-weight: bold;">Search:</span>  
+       <input type="text" id="txtSearch" name="txtSearch" maxlength="50" style="height: 25px; font: 100" />   
+   </p>  --%>
+   <asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
+        <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
+        <asp:Label ID="Label6" runat="server" Text="เลขสมาชิก สอ :"></asp:Label>
+         <asp:TextBox ID="Tbx_member" runat="server" Height="16px" Width="86px"></asp:TextBox>
+         <asp:Label ID="Label12" runat="server" Text="ชื่อ :"></asp:Label>
+        <asp:TextBox ID="Tbx_Fname" runat="server" Height="20px" Width="85px"></asp:TextBox>
+         <asp:Label ID="Label41" runat="server" Text="นามสกุล :"></asp:Label>
+        <asp:TextBox ID="Tbx_Sname" runat="server" Height="20px" Width="111px"></asp:TextBox>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <asp:Label ID="Label42" runat="server" Text="Label"></asp:Label>
+        <asp:Button ID="btnSearch" Text="Search" UseSubmitBehavior="false" runat="server"
+            OnClick="ShowModal" />
       
 <hr />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
@@ -239,32 +257,36 @@
 </div>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
-    rel="stylesheet" type="text/css" />
-<script type="text/javascript">
-    $(function () {
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        //var SearchValue;
+        $(function () {
+           // SearchValue = localStorage.getItem("SearchValue") != "" ? localStorage.getItem("SearchValue") : $("[id*=txtSearch]").val().trim();
         $("[id*=btnShowPopup]").click(function () {
             ShowPopup();
             return false;
         });
-       
+        $("#dialog").parent().appendTo($("form:first"));
     });
     function ShowPopup() {
        $("#dialog").dialog({
-            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก", 
+            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก",
             width: 1000,
-            lable: "ffff",
+           // appendTo: "form",
             buttons: {
                 Ok: function () {
                     $(this).dialog('close');
                 }
             },
-            modal: true
 
+            modal: true
         });
-    
+        return false;
     }
+
 </script>
 
     </form>
