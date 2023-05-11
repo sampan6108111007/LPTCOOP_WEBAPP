@@ -33,6 +33,7 @@ namespace icoop_webapp
         string deptaccount_no;
         string vWhere="";
         HttpCookie myCookie = new HttpCookie("myCookie");
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -56,6 +57,7 @@ namespace icoop_webapp
             {
                 //Get_Request();
                 this.BindGrid("");
+                this.TabGrid();
                 
                 //จังหวัด อำเภอ ตำบล
                 DLPrvince.Items.Insert(0, "-- เลือกจังหวัด--");
@@ -132,25 +134,30 @@ namespace icoop_webapp
         private void BindGrid(string vWhere)
         {
             
-           string str = "SELECT * FROM wcdeptmaster WHERE  wcdeptmaster.branch_Id ='" + branchId + "'";
-           
-           
-            
-
-
-
+            string str = "SELECT * FROM wcdeptmaster WHERE  wcdeptmaster.branch_Id ='" + branchId + "'";
             str += vWhere;
-
             DataTable dt = Cndb.SelectQuery(str);
-
-
-           // Get_selectAll();
             GridView1.DataSource = Cndb.SelectQuery(str);
             GridView1.DataBind();
+            
+        }
 
-            //GridView1.UseAccessibleHeader = true;
-            //GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+        private void TabGrid()
+        {
+           // if (TbxAccount_no.Text != "") {
+           //     str = "SELECT wcdeptmaster.deptaccount_no,wcdeptmaster.branch_id,wccodeposit.deptaccount_no,wccodeposit.name,wccodeposit.seq_no,wccodeposit.codept_addre,wccodeposit.codept_relation,wccodeposit.codept_id" +
+           //"FROM wcdeptmaster " +
+           //"INNER JOIN wccodeposit ON wcdeptmaster.deptaccount_no = wccodeposit.deptaccount_no " +
+           //"WHERE wcdeptmaster.branch_id ='" + branchId + "' AND deptaccount_no ='" + TbxAccount_no.Text + "'";
+           // }
 
+            str = "SELECT TOP 10 * FROM wccodeposit WHERE branch_Id ='1001' ";
+           
+            DataTable dt = Cndb.SelectQuery(str);
+            GridView2.DataSource = Cndb.SelectQuery(str);
+            GridView2.DataBind();
+            GridView3.DataSource = Cndb.SelectQuery(str);
+            GridView3.DataBind();
         }
  
         private void Gen_MemberType()
@@ -395,8 +402,14 @@ namespace icoop_webapp
             Tbx_Mariage_Sname.Text = dt.Rows[0]["mariage_sname"].ToString();
             Tbx_Mariage_Date.Text = Fc.GetshotDate(dt.Rows[0]["mariage_date"].ToString(), 17);
             Tbx_Mariage_Id.Text = dt.Rows[0]["mariage_id"].ToString();
+
+
+            try
+            {
+                DLMariage_Provine.SelectedValue = dt.Rows[0]["mariage_province"].ToString().Trim();
+            }
+            catch (Exception) { }
             
-            Gen_Mariage_Ampher(dt.Rows[0]["mariage_province"].ToString(), dt.Rows[0]["mariage_ampher"].ToString());
            
             try
             {
@@ -420,7 +433,8 @@ namespace icoop_webapp
             RadioButtonList1.SelectedValue = Sex;
 
             DLStatus.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
-
+            DL_Payref_Method.SelectedValue = dt.Rows[0]["payref_method"].ToString();
+            Txt_Tran_Deptacc_No.Text = dt.Rows[0]["tran_deptacc_no"].ToString();
         }
 
         void Get_postcode(string Amper_code)
@@ -458,7 +472,6 @@ namespace icoop_webapp
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             string V = Label42.Text;
-
 
             GridView1.PageIndex = e.NewPageIndex;
             

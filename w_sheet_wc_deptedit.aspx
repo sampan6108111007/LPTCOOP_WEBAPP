@@ -50,6 +50,58 @@
  
     <form id="form1" runat="server">
 
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        //var SearchValue;
+        $(function () {
+            // SearchValue = localStorage.getItem("SearchValue") != "" ? localStorage.getItem("SearchValue") : $("[id*=txtSearch]").val().trim();
+            $("[id*=btnShowPopup]").click(function () {
+                ShowPopup();
+                return false;
+            });
+            $("#dialog").parent().appendTo($("form:first"));
+        });
+        function ShowPopup() {
+            $("#dialog").dialog({
+                title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก",
+                width: 1000,
+                // appendTo: "form",
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog('close');
+                    }
+                },
+
+                modal: true
+            });
+            return true;
+        }
+
+        $(document).ready(function () {
+            $("[id*=GridView2]").Scrollable({
+                ScrollHeight: 300,
+                IsInUpdatePanel: true
+            });
+        });
+        var isApplied = false;
+        function TabChanged(sender, args) {
+            if (!isApplied) {
+                if (sender.get_activeTabIndex() == 1) {
+                    $("[id*=GridView3]").Scrollable({
+                        ScrollHeight: 300,
+                        IsInUpdatePanel: true
+                    });
+                    isApplied = true;
+                }
+            }
+        }
+
+</script>
+
      <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
       <asp:updatepanel ID="Updatepanel1" runat="server">
  <ContentTemplate>
@@ -58,7 +110,7 @@
     <div style="text-align: left; margin-top: 72px">
     
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขฌาปนกิจ:"></asp:Label>
-        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px"></asp:TextBox>
+        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px" BorderStyle="NotSet"></asp:TextBox>
         <asp:Button ID="btnShowPopup" runat="server" Text="..." Width="24px" 
             onclick="Button1_Click" />
         <asp:Label ID="Label2" runat="server" Text="ชื่อสมาชิก:"></asp:Label>
@@ -120,11 +172,15 @@
             Text="วิธีเรียกเก็บ:"></asp:Label>
         <br />
         <asp:Label ID="Label20" runat="server" Text="ชำระโดย :"></asp:Label>
-        <asp:DropDownList ID="DropDownList4" runat="server">
+        <asp:DropDownList ID="DL_Payref_Method" runat="server">
+            <asp:ListItem></asp:ListItem>
+            <asp:ListItem Value="1">หักจากเงินเดือน</asp:ListItem>
+            <asp:ListItem Value="2">เงินสด</asp:ListItem>
+            <asp:ListItem Value="3">หักจากเงินฝาก</asp:ListItem>
         </asp:DropDownList>
         <br />
         <asp:Label ID="Label21" runat="server" Text="เลขที่บัญชี :"></asp:Label>
-        <asp:TextBox ID="TextBox23" runat="server"></asp:TextBox>
+        <asp:TextBox ID="Txt_Tran_Deptacc_No" runat="server"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="Label22" runat="server" style="font-weight: 700" 
@@ -193,7 +249,7 @@
     
 
 <div id="dialog" style="display: none">
- <%--<asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
+    <%--<asp:Label ID="Label40" runat="server" Text="เลขฌาปนกิจ :"></asp:Label>
         <asp:TextBox ID="Tbx_Search_Account" runat="server" Height="20px" Width="85px"></asp:TextBox>
          <asp:Label ID="Label5" runat="server" Text="บัตรประชาชน :"></asp:Label>
         <asp:TextBox ID="Tbx_Search_Idcard" runat="server" Height="20px" Width="207px"></asp:TextBox><br /><br /> 
@@ -206,7 +262,6 @@
          <asp:Button ID="Button3"  Text="Search" runat="server" OnClick="Button3_Click" />
           
          <br />--%>
-
         <%-- <p style="text-align: right; width: 500px; margin-top: 50px; margin-left: 150px">  
        <span style="font-weight: bold;">Search:</span>  
        <input type="text" id="txtSearch" name="txtSearch" maxlength="50" style="height: 25px; font: 100" />   
@@ -256,38 +311,77 @@
     </asp:GridView>
 </div>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
-        rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
+     <asp:UpdatePanel ID="up" runat="server">
+        <ContentTemplate>
+            <cc1:TabContainer ID="tabDemo" runat="server" 
+                OnClientActiveTabChanged="TabChanged" ActiveTabIndex="0">
+                <cc1:TabPanel ID="tabPanelDemo" HeaderText="Customers" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="name" HeaderText="ชื่อ นามสกุล" >
+<ItemStyle Width="150px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_id" HeaderText="บัตรประชาชน" >
+<ItemStyle Width="1000px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_addre" HeaderText="ที่อยู่เลขที่" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+           <asp:TemplateField HeaderText="ความสัมพันธ์">  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>  
+                    </EditItemTemplate>  
+                    <ItemTemplate>  
+                        <asp:DropDownList ID="DropDownList1" runat="server">  
+                        </asp:DropDownList>  
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                            </Columns>
 
-        //var SearchValue;
-        $(function () {
-           // SearchValue = localStorage.getItem("SearchValue") != "" ? localStorage.getItem("SearchValue") : $("[id*=txtSearch]").val().trim();
-        $("[id*=btnShowPopup]").click(function () {
-            ShowPopup();
-            return false;
-        });
-        $("#dialog").parent().appendTo($("form:first"));
-    });
-    function ShowPopup() {
-       $("#dialog").dialog({
-            title: "ดู/แก้ไข ข้อมูลทะเบียนสมาชิก",
-            width: 1000,
-           // appendTo: "form",
-            buttons: {
-                Ok: function () {
-                    $(this).dialog('close');
-                }
-            },
+                        </asp:GridView>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+                <cc1:TabPanel ID="tabPanelDemo2" HeaderText="Customers2" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false">
+                             <Columns>
+                                <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="name" HeaderText="ชื่อ นามสกุล" >
+<ItemStyle Width="150px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_id" HeaderText="บัตรประชาชน" >
+<ItemStyle Width="1000px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_addre" HeaderText="ที่อยู่เลขที่" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+           <asp:TemplateField HeaderText="ความสัมพันธ์">  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>  
+                    </EditItemTemplate>  
+                    <ItemTemplate>  
+                        <asp:DropDownList ID="DropDownList1" runat="server">  
+                        </asp:DropDownList>  
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+            </cc1:TabContainer>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
-            modal: true
-        });
-        return false;
-    }
+     </div>
+  
 
-</script>
+   
 
     </form>
    

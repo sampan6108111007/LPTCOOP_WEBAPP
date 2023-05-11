@@ -51,39 +51,12 @@ namespace icoop_webapp
 
         private void BindGrid()
         {
-
-            //OracleDataAdapter Ora_Da = new OracleDataAdapter();
-            //OracleConnection con = new OracleConnection();
-            //OracleCommand cmd = new OracleCommand();
-
             str = "SELECT wcdeptmaster.branch_Id,wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster WHERE branch_Id ='" + branchId + "'";
-            
-            // AND wfaccount_name LIKE '%" + txtSearch.text + "%'
-
-            DataTable dt = Cndb.SelectQuery(str);
-
-                //str += " WHERE wfaccount_name = :wfaccount_name";
-                //cmd.Parameters.Add("wfaccount_name", txtSearch.Text.Trim());
-            
-            
-            //str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "' AND wcdeptmaster.deptaccount_no LIKE '%" + txtSearch + "%'";
-            //str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "'";
-            // str = "SELECT wcdeptmaster.branch_Id, wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where wcdeptmaster.branch_Id ='" + branchId + "' AND wcdeptmaster.deptaccount_no LIKE ''%'" + @deptaccount_no + "'%''";
-
-            
-            //cmd.CommandText = str;
-            //cmd.Connection = con;
-          
-            //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE %" + Tbx_Search_Account + "%";
-            //str = "SELECT wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster where branch_Id ='" + branchId + "' AND deptaccount_no LIKE '%" + Tbx_Search_Account + "%'";
-            //Cndb.("@ContactName", Tbx_Search_Account.Text.Trim());
-//            DataTable dt = Cndb.SelectQuery(str);
-            
-
-            //Get_selectAll();
+            DataTable dt = Cndb.SelectQuery(str);       
             GridView1.DataSource = Cndb.SelectQuery(str);
             GridView1.DataBind();
-
+            GridView2.DataSource = Cndb.SelectQuery(str);
+            GridView2.DataBind();
         }
 
         //protected void OnGetDetails(object sender, EventArgs e)

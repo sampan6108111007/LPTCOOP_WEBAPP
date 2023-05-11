@@ -31,40 +31,31 @@ namespace icoop_webapp {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// btnShow control.
+        /// up control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShow;
+        protected global::System.Web.UI.UpdatePanel up;
         
         /// <summary>
-        /// mp1 control.
+        /// tabDemo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mp1;
+        protected global::AjaxControlToolkit.TabContainer tabDemo;
         
         /// <summary>
-        /// Panel1 control.
+        /// tabPanelDemo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
-        
-        /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::AjaxControlToolkit.TabPanel tabPanelDemo;
         
         /// <summary>
         /// GridView1 control.
@@ -76,12 +67,21 @@ namespace icoop_webapp {
         protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// btnClose control.
+        /// tabPanelDemo2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClose;
+        protected global::AjaxControlToolkit.TabPanel tabPanelDemo2;
+        
+        /// <summary>
+        /// GridView2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView2;
     }
 }
