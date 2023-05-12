@@ -57,7 +57,7 @@ namespace icoop_webapp
             {
                 //Get_Request();
                 this.BindGrid("");
-                this.TabGrid();
+                
                 
                 //จังหวัด อำเภอ ตำบล
                 DLPrvince.Items.Insert(0, "-- เลือกจังหวัด--");
@@ -80,7 +80,8 @@ namespace icoop_webapp
                 
                 //ประเภทสมาชิก
                 MemberType.Items.Insert(0, "---ประเภท---");
-                Gen_MemberType();        
+                Gen_MemberType();
+                TabGrid();
             }
           
         }
@@ -151,13 +152,36 @@ namespace icoop_webapp
            //"WHERE wcdeptmaster.branch_id ='" + branchId + "' AND deptaccount_no ='" + TbxAccount_no.Text + "'";
            // }
 
-            str = "SELECT TOP 10 * FROM wccodeposit WHERE branch_Id ='1001' ";
-           
-            DataTable dt = Cndb.SelectQuery(str);
-            GridView2.DataSource = Cndb.SelectQuery(str);
-            GridView2.DataBind();
-            GridView3.DataSource = Cndb.SelectQuery(str);
-            GridView3.DataBind();
+           // string vWhere = "";
+           // str = "SELECT wcdeptmaster.deptaccount_no,wcdeptmaster.branch_id,wccodeposit.deptaccount_no,wccodeposit.name,wccodeposit.seq_no,wccodeposit.codept_addre,wccodeposit.codept_relation,wccodeposit.codept_id" +
+           //"FROM wcdeptmaster " +
+           //"INNER JOIN wccodeposit ON wcdeptmaster.deptaccount_no = wccodeposit.deptaccount_no " +
+           //"WHERE wcdeptmaster.branch_id ='" + branchId + "";
+
+           // if (TbxAccount_no.Text != "")
+           // {
+           //     vWhere = " and deptaccount_no='" + dept_no2 + "'";
+           // }
+
+           // str += vWhere;
+
+            //if (TbxAccount_no.Text != "")
+            //{
+            //    str = "SELECT * FROM wccodeposit WHERE branch_Id = '" + branchId + "'";
+            //}
+
+
+
+
+            str = "SELECT wcdeptmaster.deptaccount_no,wcdeptmaster.branch_id,wccodeposit.deptaccount_no,wccodeposit.name,wccodeposit.seq_no,wccodeposit.codept_addre,wccodeposit.codept_relation,wccodeposit.codept_id FROM wcdeptmaster INNER JOIN wccodeposit ON wcdeptmaster.deptaccount_no = wccodeposit.deptaccount_no WHERE wccodeposit.branch_id ='" + branchId + "' AND wccodeposit.deptaccount_no ='00007767'";
+            
+                DataSet ds = Cndb.SelectQueryDropdown(str);
+                DataTable dt = Cndb.SelectQuery(str);
+                GridView2.DataSource = Cndb.SelectQuery(str);
+                GridView2.DataBind();
+                GridView3.DataSource = Cndb.SelectQuery(str);
+                GridView3.DataBind();
+            
         }
  
         private void Gen_MemberType()
@@ -343,6 +367,7 @@ namespace icoop_webapp
 
             str += vWhere;
 
+            
             DataTable dt = Cndb.SelectQuery(str);
    
             if (dt.Rows.Count <= 0) { return; }
@@ -402,7 +427,7 @@ namespace icoop_webapp
             Tbx_Mariage_Sname.Text = dt.Rows[0]["mariage_sname"].ToString();
             Tbx_Mariage_Date.Text = Fc.GetshotDate(dt.Rows[0]["mariage_date"].ToString(), 17);
             Tbx_Mariage_Id.Text = dt.Rows[0]["mariage_id"].ToString();
-
+            
 
             try
             {
@@ -435,6 +460,7 @@ namespace icoop_webapp
             DLStatus.SelectedValue = dt.Rows[0]["mariage_status"].ToString();
             DL_Payref_Method.SelectedValue = dt.Rows[0]["payref_method"].ToString();
             Txt_Tran_Deptacc_No.Text = dt.Rows[0]["tran_deptacc_no"].ToString();
+            
         }
 
         void Get_postcode(string Amper_code)
@@ -502,7 +528,66 @@ namespace icoop_webapp
 
         }
 
-        
+        //protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+                
+        //        DropDownList DropDownList1 = (e.Row.FindControl("DropDownList1") as DropDownList);
+                
+
+        //        DataTable dt = Cndb.SelectQuery(str);
+        //        GridView2.DataSource = Cndb.SelectQuery(str);
+        //        GridView2.DataBind();
+
+
+        //        str = "SELECT codept_relation FROM wccodeposit";
+        //        DropDownList1.DataSource = dt;
+
+        //        DropDownList1.DataTextField = "codept_relation";
+        //        DropDownList1.DataValueField = "codept_relation";
+        //        DropDownList1.DataBind();
+        //        DropDownList1.Items.Insert(0, new ListItem("--Select Qualification--", "0"));
+
+
+        //    }
+
+        //}
+
+
+           //str = "select * from wcucftambol where tambol_code ='" + tambol_code.ToString() + "'";
+           // DataSet ds = Cndb.SelectQueryDropdown(str);
+           // DLtambon.DataSource = Cndb.SelectQueryDropdown(str);
+           // DLtambon.DataMember = "show";
+           // DLtambon.DataTextField = "tambol_desc";
+           // DLtambon.DataValueField = "tambol_code";
+           // DLtambon.Items.Insert(0, "-- เลือกตำบล --");
+           // DLtambon.DataBind();
+
+        //protected void GridView2_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        DataTable dt = Cndb.SelectQuery(str);
+        //        if (dt.Rows.Count <= 0) { return; }
+               
+        //        str = "select wccodeposit from codept_relation ";
+        //        DataSet ds = Cndb.SelectQueryDropdown(str);
+        //        DropDownList ddlCountries = (e.Row.FindControl("ddlCountries") as DropDownList);
+        //        ddlCountries.DataSource = Cndb.SelectQueryDropdown(str);
+        //        //ddlCountries.DataSource = Cndb("SELECT DISTINCT Country FROM Customers");
+        //        ddlCountries.DataMember = "show";
+        //        ddlCountries.DataTextField = "codept_relation";
+        //        ddlCountries.DataValueField = "codept_relation";
+        //        ddlCountries.Items.Insert(0, "Please select");
+        //        ddlCountries.DataBind();
+                
+
+        //        //Select the Country of Customer in DropDownList.
+        //        //string country = (e.Row.FindControl("lblCountry") as Label).Text;
+        //        //ddlCountries.Items.FindByValue(country).Selected = true;
+        //    }
+        //}
   
     }
 }

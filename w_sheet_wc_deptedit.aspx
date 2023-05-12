@@ -110,7 +110,7 @@
     <div style="text-align: left; margin-top: 72px">
     
         <asp:Label ID="Label1" runat="server" BorderStyle="Solid" Text="เลขฌาปนกิจ:"></asp:Label>
-        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px" BorderStyle="NotSet"></asp:TextBox>
+        <asp:TextBox ID="TbxAccount_no" runat="server" Width="79px"></asp:TextBox>
         <asp:Button ID="btnShowPopup" runat="server" Text="..." Width="24px" 
             onclick="Button1_Click" />
         <asp:Label ID="Label2" runat="server" Text="ชื่อสมาชิก:"></asp:Label>
@@ -187,7 +187,7 @@
             Text="ข้อมูลคู่สมรส:"></asp:Label>
         <br />
         <asp:Label ID="Label23" runat="server" Text="สถานะความสัมพันธ์ :"></asp:Label>
-        <asp:DropDownList ID="DLStatus" runat="server">
+        <asp:DropDownList ID="DLStatus" runat="server" >
             <asp:ListItem></asp:ListItem>
             <asp:ListItem Value="0">โสด</asp:ListItem>
             <asp:ListItem Value="1">สมรส</asp:ListItem>
@@ -317,7 +317,7 @@
                 OnClientActiveTabChanged="TabChanged" ActiveTabIndex="0">
                 <cc1:TabPanel ID="tabPanelDemo" HeaderText="Customers" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" >
                             <Columns>
                                 <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
 <ItemStyle Width="200px"></ItemStyle>
@@ -331,15 +331,13 @@
             <asp:BoundField DataField="codept_addre" HeaderText="ที่อยู่เลขที่" >
 <ItemStyle Width="200px"></ItemStyle>
             </asp:BoundField>
-           <asp:TemplateField HeaderText="ความสัมพันธ์">  
-                    <EditItemTemplate>  
-                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>  
-                    </EditItemTemplate>  
-                    <ItemTemplate>  
-                        <asp:DropDownList ID="DropDownList1" runat="server">  
-                        </asp:DropDownList>  
-                    </ItemTemplate>  
-                </asp:TemplateField>
+                   <asp:TemplateField HeaderText = "Country">
+            <ItemTemplate>
+                
+                <asp:DropDownList ID="ddlCountries" runat="server" AutoPostBack="True">
+                </asp:DropDownList>
+            </ItemTemplate>
+        </asp:TemplateField>
                             </Columns>
 
                         </asp:GridView>
