@@ -51,12 +51,15 @@ namespace icoop_webapp
 
         private void BindGrid()
         {
-            str = "SELECT wcdeptmaster.branch_Id,wcdeptmaster.deptaccount_no, wcdeptmaster.member_no, wcdeptmaster.wfaccount_name, wcdeptmaster.card_person FROM wcdeptmaster WHERE branch_Id ='" + branchId + "'";
+            str = "SELECT wcdeptmaster.deptaccount_no,wcdeptmaster.branch_id,wccodeposit.deptaccount_no,wccodeposit.name,wccodeposit.seq_no,wccodeposit.codept_addre,wccodeposit.codept_relation,wccodeposit.codept_id FROM wcdeptmaster INNER JOIN wccodeposit ON wcdeptmaster.deptaccount_no = wccodeposit.deptaccount_no WHERE wccodeposit.branch_id ='" + branchId + "' AND wccodeposit.deptaccount_no ='00000008'";
             DataTable dt = Cndb.SelectQuery(str);       
             GridView1.DataSource = Cndb.SelectQuery(str);
             GridView1.DataBind();
             GridView2.DataSource = Cndb.SelectQuery(str);
             GridView2.DataBind();
+            GridView3.DataSource = Cndb.SelectQuery(str);
+            GridView3.DataBind();
+            
         }
 
         //protected void OnGetDetails(object sender, EventArgs e)
@@ -69,8 +72,6 @@ namespace icoop_webapp
         //    string card_preson = row.Cells[3].Text;
         //    Response.Redirect("w_sheet_wc_deptedit.aspx?TbxAccount_no=" + deptaccount_no + "&Tbx_member_no=" + member_no + "&Tbx_Name=" + wfaccount_name + "&Tbx_Idcard=" + card_preson);
         //}
-
-       
 
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -90,10 +91,10 @@ namespace icoop_webapp
             //GridViewRow row = ((sender as Button).NamingContainer as GridViewRow);
 
             string deptaccount_no = GridView1.SelectedRow.Cells[0].Text;
-            string member_no = GridView1.SelectedRow.Cells[1].Text;
-            string wfaccount_name = GridView1.SelectedRow.Cells[2].Text;
-            string card_preson = GridView1.SelectedRow.Cells[3].Text;
-            Response.Redirect("w_sheet_wc_deptedit.aspx?TbxAccount_no=" + deptaccount_no + "&Tbx_member_no=" + member_no + "&Tbx_Name=" + wfaccount_name + "&Tbx_Idcard=" + card_preson);
+            string codept_id = GridView1.SelectedRow.Cells[1].Text;
+            string codept_addre = GridView1.SelectedRow.Cells[2].Text;
+          //  string card_preson = GridView1.SelectedRow.Cells[3].Text;
+            //Response.Redirect("w_sheet_wc_deptedit.aspx?TbxAccount_no=" + deptaccount_no + "&Tbx_member_no=" + member_no + "&Tbx_Name=" + wfaccount_name + "&Tbx_Idcard=" + card_preson);
         }
 
         protected void OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)

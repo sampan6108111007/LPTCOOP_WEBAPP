@@ -13,7 +13,7 @@
     <asp:UpdatePanel ID="up" runat="server">
         <ContentTemplate>
             <cc1:TabContainer ID="tabDemo" runat="server" 
-                OnClientActiveTabChanged="TabChanged" ActiveTabIndex="0">
+                OnClientActiveTabChanged="TabChanged" ActiveTabIndex="2">
                 <cc1:TabPanel ID="tabPanelDemo" HeaderText="Customers" runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False">
@@ -21,15 +21,13 @@
                                 <asp:BoundField DataField="deptaccount_no" HeaderText="ลำดับ" >
 <ItemStyle Width="200px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="member_no" HeaderText="ชื่อ นามสกุล" >
+            <asp:BoundField DataField="codept_id" HeaderText="ชื่อ นามสกุล" >
 <ItemStyle Width="150px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="wfaccount_name" HeaderText="บัตรประชาชน" >
+            <asp:BoundField DataField="codept_addre" HeaderText="บัตรประชาชน" >
 <ItemStyle Width="1000px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="card_person" HeaderText="ที่อยู่เลขที่" >
-<ItemStyle Width="200px"></ItemStyle>
-            </asp:BoundField>
+           
            <asp:TemplateField HeaderText="ความสัมพันธ์">  
                     <EditItemTemplate>  
                         <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>  
@@ -46,24 +44,40 @@
                 </cc1:TabPanel>
                 <cc1:TabPanel ID="tabPanelDemo2" HeaderText="Customers2" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="false">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False">
+                            <Columns>
+                                <asp:BoundField DataField="deptaccount_no" HeaderText="เลขฌาปนกิจ" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_id" HeaderText="เลขสมาชิก สอ" >
+<ItemStyle Width="150px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_addre" HeaderText="ชื่อ นามสกุล" >
+<ItemStyle Width="1000px"></ItemStyle>
+            </asp:BoundField>
+            
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+
+                <cc1:TabPanel ID="tabPanelDemo3" HeaderText="Customers3" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false">
                             <Columns>
                                 <asp:BoundField DataField="deptaccount_no" HeaderText="เลขฌาปนกิจ" 
                 ItemStyle-Width="200" >
 <ItemStyle Width="200px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="member_no" HeaderText="เลขสมาชิก สอ" 
+            <asp:BoundField DataField="codept_id" HeaderText="เลขสมาชิก สอ" 
                 ItemStyle-Width="150" >
 <ItemStyle Width="150px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="wfaccount_name" HeaderText="ชื่อ นามสกุล" 
+            <asp:BoundField DataField="codept_addre" HeaderText="ชื่อ นามสกุล" 
                 ItemStyle-Width="1000" >
 <ItemStyle Width="1000px"></ItemStyle>
             </asp:BoundField>
-            <asp:BoundField DataField="card_person" HeaderText="บัตรประชาชน" 
-                ItemStyle-Width="200" >
-<ItemStyle Width="200px"></ItemStyle>
-            </asp:BoundField>
+            
                             </Columns>
                         </asp:GridView>
                     </ContentTemplate>
@@ -85,6 +99,15 @@
             if (!isApplied) {
                 if (sender.get_activeTabIndex() == 1) {
                     $("[id*=GridView2]").Scrollable({
+                        ScrollHeight: 300,
+                        IsInUpdatePanel: true
+                    });
+                    isApplied = true;
+                }
+            }
+            else if (!isApplied) {
+                if (sender.get_activeTabIndex() == 2) {
+                    $("[id*=GridView3]").Scrollable({
                         ScrollHeight: 300,
                         IsInUpdatePanel: true
                     });

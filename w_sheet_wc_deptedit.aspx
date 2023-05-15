@@ -95,6 +95,15 @@
                         ScrollHeight: 300,
                         IsInUpdatePanel: true
                     });
+                    isApplied = true;               
+            }
+        }
+            else if (!isApplied) {
+                if (sender.get_activeTabIndex() == 2) {
+                    $("[id*=GridView4]").Scrollable({
+                        ScrollHeight: 300,
+                        IsInUpdatePanel: true
+                    });
                     isApplied = true;
                 }
             }
@@ -314,27 +323,27 @@
      <asp:UpdatePanel ID="up" runat="server">
         <ContentTemplate>
             <cc1:TabContainer ID="tabDemo" runat="server" 
-                OnClientActiveTabChanged="TabChanged" ActiveTabIndex="0">
-                <cc1:TabPanel ID="tabPanelDemo" HeaderText="Customers" runat="server">
+                OnClientActiveTabChanged="TabChanged" ActiveTabIndex="1">
+                <cc1:TabPanel ID="tabPanelDemo" HeaderText="ผู้รับเงินสงเคราะห์" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" >
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" onrowdatabound="GridView2_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
-<ItemStyle Width="200px"></ItemStyle>
+<ItemStyle Width="50px"></ItemStyle>
             </asp:BoundField>
             <asp:BoundField DataField="name" HeaderText="ชื่อ นามสกุล" >
-<ItemStyle Width="150px"></ItemStyle>
-            </asp:BoundField>
-            <asp:BoundField DataField="codept_id" HeaderText="บัตรประชาชน" >
-<ItemStyle Width="1000px"></ItemStyle>
-            </asp:BoundField>
-            <asp:BoundField DataField="codept_addre" HeaderText="ที่อยู่เลขที่" >
 <ItemStyle Width="200px"></ItemStyle>
             </asp:BoundField>
-                   <asp:TemplateField HeaderText = "Country">
+            <asp:BoundField DataField="codept_id" HeaderText="บัตรประชาชน" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="codept_addre" HeaderText="ที่อยู่เลขที่" >
+<ItemStyle Width="1000px"></ItemStyle>
+            </asp:BoundField>
+                   <asp:TemplateField HeaderText = "ความสัมพันธ์">
             <ItemTemplate>
-                
-                <asp:DropDownList ID="ddlCountries" runat="server" AutoPostBack="True">
+                <asp:Label ID="Label43" runat="server" Text='<%#Eval("codept_relation")%>' Visible=false></asp:Label>
+                <asp:DropDownList ID="DropDownList1" runat="server" >
                 </asp:DropDownList>
             </ItemTemplate>
         </asp:TemplateField>
@@ -343,9 +352,42 @@
                         </asp:GridView>
                     </ContentTemplate>
                 </cc1:TabPanel>
-                <cc1:TabPanel ID="tabPanelDemo2" HeaderText="Customers2" runat="server">
+                <cc1:TabPanel ID="tabPanelDemo2" HeaderText="ข้อมูลการเรียกเก็บ" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false">
+                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False">
+                             <Columns>
+                                <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
+<ItemStyle Width="50px"></ItemStyle>
+            </asp:BoundField>
+                                 <asp:TemplateField HeaderText="วันที่">
+                                     <ItemTemplate>
+                                         <asp:Label ID="Label44" runat="server" Text='<%#GetThaidate(Eval("operate_date"))%>'></asp:Label>
+                                     </ItemTemplate>
+                                     <ItemStyle Width="100px" />
+                                 </asp:TemplateField>
+            <asp:BoundField DataField="deptitemtype_code" HeaderText="รายการ" >
+<ItemStyle Width="200px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="deptitem_amt" HeaderText="จำนวนเงิน" >
+<ItemStyle Width="100px"></ItemStyle>
+            </asp:BoundField>
+           <asp:BoundField DataField="statement_status" HeaderText="ประเภทรายการ" >
+<ItemStyle Width="100px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField HeaderText="ยอดคงเหลือ" >
+<ItemStyle Width="100px"></ItemStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="entry_id" HeaderText="ผู้บันทึก" >
+<ItemStyle Width="100px"></ItemStyle>
+            </asp:BoundField>
+                            </Columns>
+                        </asp:GridView>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+
+                <cc1:TabPanel ID="tabPanelDemo3" HeaderText="ข้อมูลการโอนย้าย" runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="false">
                              <Columns>
                                 <asp:BoundField DataField="seq_no" HeaderText="ลำดับ" >
 <ItemStyle Width="200px"></ItemStyle>
@@ -372,9 +414,13 @@
                         </asp:GridView>
                     </ContentTemplate>
                 </cc1:TabPanel>
+
             </cc1:TabContainer>
         </ContentTemplate>
     </asp:UpdatePanel>
+
+    
+       
 
      </div>
   
